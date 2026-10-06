@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Podcasts\Schemas;
 
 use App\Enums\Platform;
+use App\Enums\Settings;
 use App\Models\Podcast;
 use Arr;
 use Filament\Actions\Action;
@@ -16,7 +17,6 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Http;
-use Livewire\Component;
 use Uri;
 
 class PodcastForm
@@ -26,16 +26,21 @@ class PodcastForm
 
     private static function searchPodcasts(string $query)
     {
+        $key = Settings::LISTEN_NOTES_API_KEY->model('value')->value;
+        if (!$key) {
+            return;
+        }
+
         //? https://www.listennotes.com/api/docs/#get-api-v2-search
-        $uri = (new Uri(static::API_HOST))
-            ->withPath('/api/v2/search_episode_titles')
-            ->withQuery([
+        $searchURL = static::API_HOST . "/api/v2/search_episode_titles";
+
+        $response = Http::withHeader('X-ListenAPI-Key', $key)
+            ->get($searchURL, [
                 'q' => $query,
                 'type' => 'episode',
                 'page_size' => static::MAX_SUGGESTIONS
             ]);
 
-        $response = Http::get($uri->toString());
         if ($response->getStatusCode() != 200) {
             return null;
         }
