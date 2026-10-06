@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['label', 'value'])]
+#[Fillable(['id', 'label', 'value'])]
 class Setting extends Model
 {
-    //
+    public $incrementing = false;
 }
