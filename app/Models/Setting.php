@@ -9,4 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     public $incrementing = false;
+
+    // No "created_at" column as the settings creation is not important
+    public const CREATED_AT = null;
 }
