@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->string('title');
             $table->string('description', 1024);
 
-            $table->string('thumbnail_path');
             $table->longText('body');
 
             $table->foreignId('experience_id')->nullable()->constrained('experiences', 'id')->cascadeOnUpdate()->nullOnDelete();

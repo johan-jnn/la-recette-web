@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable('title', 'description', 'thumbnail_path', 'body')]
+#[Fillable('title', 'description', 'body')]
 class Article extends Model
 {
     public function experience()

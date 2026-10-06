@@ -16,7 +16,6 @@ return new class extends Migration {
 
             $table->string('title', 512);
             $table->longText('presentation');
-            $table->string('thumbnail_path');
             $table->string('luma_event_id')->nullable();
         });
     }
