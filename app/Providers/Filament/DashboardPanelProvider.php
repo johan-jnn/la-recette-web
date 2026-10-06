@@ -27,6 +27,7 @@ class DashboardPanelProvider extends PanelProvider
             ->default()
             ->id('dashboard')
             ->path('redaction')
+            ->viteTheme('resources/css/filament/dashboard/theme.css')
             ->login()
             ->colors([
                 'primary' => Color::Amber,

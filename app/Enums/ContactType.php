@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-enum ContactType
+enum ContactType: string
 {
-    case QUESTION;
-    case DEVIS;
-    case RESERVATION;
-    case AUTRE;
+    case QUESTION = "question";
+    case DEVIS = "devis";
+    case RESERVATION = "reservation";
+    case AUTRE = "other";
 }
