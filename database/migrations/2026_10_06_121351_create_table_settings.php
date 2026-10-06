@@ -12,7 +12,8 @@ return new class extends Migration {
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('updated_at');
+
             $table->tinyText('label');
             $table->string('value')->nullable();
         });

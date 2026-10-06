@@ -24,11 +24,13 @@ class SettingResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'label';
 
+    protected static ?string $modelLabel = 'Paramètre';
+
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
-                TextInput::make('value')
+                TextInput::make('value')->columnSpanFull()->label('Valeur')
             ]);
     }
 
