@@ -12,16 +12,22 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
+use Filament\Forms\Components\ViewField;
+use Filament\Notifications\Notification;
+use Filament\Schemas\Components\Actions;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Alignment;
 use Http;
+use Log;
 use Uri;
 
 class PodcastForm
 {
-    private const string API_HOST = "https://listen-api-test.listennotes.com";
+    private const string API_HOST = "https://listen-api.listennotes.com";
     private const int MAX_SUGGESTIONS = 3;
 
     private static function searchPodcasts(string $query)
@@ -45,7 +51,13 @@ class PodcastForm
             return null;
         }
 
-        return $response->json('results');
+        $results = $response->json('results');
+        if (\count($results) > static::MAX_SUGGESTIONS) {
+            Log::warning("The received ListenNote API response has more than" . static::MAX_SUGGESTIONS . " responses.");
+            $results = \array_slice($results, 0, static::MAX_SUGGESTIONS);
+        }
+
+        return $results;
     }
 
     /**
@@ -53,30 +65,30 @@ class PodcastForm
      * into a {@see Podcast}.
      * @return Podcast
      */
-    private static function apiToFillables(array $apiPodcast): Podcast
+    private static function mapApiEntity(array $apiPodcast): array
     {
         $description = strip_tags($apiPodcast['description_original']);
 
-        if (\strlen($description) > 1024) {
-            $description = substr($description, 0, 1020) . '...';
+        if (\strlen($description) > 600) {
+            $description = substr($description, 0, 600) . '...';
         }
 
-        $podcast = Podcast::make([
+        $episode = [
             'title' => $apiPodcast['title_original'],
             'description' => $description,
             'cover_url' => $apiPodcast['image'],
-        ]);
-        $podcast->setAttribute('urls', [
-            [
-                'platform' => Platform::APPLE_MUSIC,
-                'url' => "https://podcasts.apple.com/fr/podcast/id{$apiPodcast['itunes_id']}"
+            'urls' => [
+                [
+                    'platform' => Platform::APPLE_MUSIC,
+                    'url' => "https://podcasts.apple.com/fr/podcast/id{$apiPodcast['itunes_id']}"
+                ]
             ]
-        ]);
+        ];
 
-        return $podcast;
+        return $episode;
     }
 
-    private static function getFillWithEntryAction()
+    private static function getFillAction()
     {
         return Action::make('apply_fields')
             ->label('Appliquer')
@@ -86,6 +98,10 @@ class PodcastForm
                 }
 
                 $schemaSet('../../prefilled', true);
+                Notification::make()
+                    ->title('Champs pré-remplis !')
+                    ->success()
+                    ->send();
             });
     }
 
@@ -113,7 +129,7 @@ class PodcastForm
                         if (\is_array($response)) {
                             $set('podcasts_found', Arr::map(
                                 $response,
-                                fn($item) => static::apiToFillables($item)->toArray()
+                                fn($item) => static::mapApiEntity($item)
                             ));
                         }
                     })
@@ -138,9 +154,15 @@ class PodcastForm
                             ->default([])
                             ->schema([
                                 Section::make()
+                                    ->contained(false)
                                     ->disableLabel()
-                                    ->key('./')
-                                    ->headerActions([static::getFillWithEntryAction()])
+                                    ->footerActions([
+                                        static::getFillAction()
+                                    ])
+                                    ->footerActionsAlignment(Alignment::End)
+                                    ->components(fn(array $state) => [
+                                        ViewField::make('card')->view('filament.forms.listenNoteResponseCard', $state)
+                                    ])
                             ])
                     ]),
 
