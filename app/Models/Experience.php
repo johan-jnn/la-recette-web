@@ -12,4 +12,9 @@ class Experience extends Model
     {
         return $this->hasManyThrough(ContactEntry::class, ContactExperience::class, 'experience_id', 'contact_id', 'id', 'id');
     }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'id', 'article_id');
+    }
 }

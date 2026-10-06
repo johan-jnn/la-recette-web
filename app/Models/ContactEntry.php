@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Enums\ContactType;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 #[Fillable('first_name', 'last_name', 'email', 'phone', 'object', 'message', 'type', 'company_name')]
 class ContactEntry extends Model
