@@ -11,4 +11,9 @@ class Podcast extends Model
     protected $optionals = [
         'duration',
     ];
+
+    public function urls()
+    {
+        return $this->hasMany(PodcastUrl::class, 'podcast_id', 'id');
+    }
 }
