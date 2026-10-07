@@ -15,6 +15,6 @@ class ContactEntry extends Model
 
     public function experiences()
     {
-        return $this->belongsToMany(Experience::class, ContactExperience::class, 'contact_id', 'id', 'experience_id', 'id');
+        return $this->belongsToMany(Experience::class, ContactExperience::class, 'contact_id', 'experience_id', 'id', 'id');
     }
 }
