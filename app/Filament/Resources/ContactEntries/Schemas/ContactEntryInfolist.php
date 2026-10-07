@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\ContactEntries\Schemas;
 
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Flex;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -14,31 +16,39 @@ class ContactEntryInfolist
             ->components([
                 TextEntry::make('created_at')
                     ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
+                    ->alignEnd()
+                    ->columnSpanFull()
+                    ->disableLabel()
+                    ->label("Date de réception"),
+
                 Section::make('Coordonnées')
                     ->columns(2)
                     ->columnSpanFull()
                     ->schema([
-                        TextEntry::make('first_name'),
-                        TextEntry::make('last_name'),
+                        TextEntry::make('first_name')
+                            ->label('Prénom'),
+                        TextEntry::make('last_name')
+                            ->label('Nom'),
                         TextEntry::make('email')
-                            ->label('Email address'),
-                        TextEntry::make('phone'),
-                        TextEntry::make('company_name'),
+                            ->label('Adresse Email'),
+                        TextEntry::make('phone')
+                            ->label('Téléphone'),
+                        TextEntry::make('company_name')
+                            ->label('Entreprise')
+                            ->default('-'),
                     ]),
                 Section::make('Demande')
-                    ->columns(2)
                     ->columnSpanFull()
+                    ->columns(2)
                     ->schema([
-                        TextEntry::make('object'),
+                        TextEntry::make('object')
+                            ->label('Objet'),
                         TextEntry::make('type')
-                            ->badge(),
+                            ->badge()
+                            ->label('Type'),
                         TextEntry::make('message')
-                            ->columnSpanFull(),
-
+                            ->columnSpanFull()
+                            ->label('Détails'),
                     ]),
             ]);
     }

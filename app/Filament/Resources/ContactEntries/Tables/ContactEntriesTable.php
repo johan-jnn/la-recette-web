@@ -45,7 +45,7 @@ class ContactEntriesTable
                     ->searchable()
                     ->default('-'),
                 TextColumn::make('created_at')
-                    ->label("Date d'envoi")
+                    ->label("Date de réception")
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
