@@ -23,6 +23,8 @@ class ContactEntryResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = 'iconpark-emaildown-o';
 
     protected static ?string $recordTitleAttribute = 'object';
+    protected static ?string $label = 'Prise de contact';
+    protected static ?string $pluralLabel = 'Prises de contact';
 
     public static function form(Schema $schema): Schema
     {
