@@ -6,6 +6,7 @@ use App\Enums\Platform;
 use App\Enums\Settings;
 use App\Models\Podcast;
 use Arr;
+use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Repeater;
@@ -77,6 +78,8 @@ class PodcastForm
             'title' => $apiPodcast['title_original'],
             'description' => $description,
             'cover_url' => $apiPodcast['image'],
+            'duration' => $apiPodcast['audio_length_sec'],
+            'publish_date' => Carbon::createFromTimestampMs($apiPodcast['pub_date_ms']),
             'urls' => [
                 [
                     'platform' => Platform::APPLE_MUSIC,
