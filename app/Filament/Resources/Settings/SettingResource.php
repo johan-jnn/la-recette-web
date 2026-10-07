@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Settings;
 
+use App\Enums\Filament\NavigationGroups;
 use App\Filament\Resources\Settings\Pages\ManageSettings;
 use App\Models\Setting;
 use BackedEnum;
@@ -15,12 +16,16 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class SettingResource extends Resource
 {
     protected static ?string $model = Setting::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'iconpark-setting';
+
+
+    protected static string|UnitEnum|null $navigationGroup = NavigationGroups::SETTINGS;
 
     protected static ?string $recordTitleAttribute = 'label';
 

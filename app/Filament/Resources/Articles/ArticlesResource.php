@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Articles;
 
+use App\Enums\Filament\NavigationGroups;
 use App\Filament\Resources\Articles\Pages\CreateArticles;
 use App\Filament\Resources\Articles\Pages\EditArticles;
 use App\Filament\Resources\Articles\Pages\ListArticles;
@@ -13,12 +14,17 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ArticlesResource extends Resource
 {
     protected static ?string $model = Article::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'iconpark-bookmark';
+
+    protected static UnitEnum|string|null $navigationGroup = NavigationGroups::CONTENT;
+
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $recordTitleAttribute = 'title';
 

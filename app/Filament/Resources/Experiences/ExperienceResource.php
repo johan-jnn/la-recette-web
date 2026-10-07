@@ -8,16 +8,22 @@ use App\Filament\Resources\Experiences\Pages\ListExperiences;
 use App\Filament\Resources\Experiences\Schemas\ExperienceForm;
 use App\Filament\Resources\Experiences\Tables\ExperiencesTable;
 use App\Models\Experience;
+use App\Enums\Filament\NavigationGroups;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ExperienceResource extends Resource
 {
     protected static ?string $model = Experience::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'iconpark-star';
+
+    protected static UnitEnum|string|null $navigationGroup = NavigationGroups::CONTENT;
+
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $recordTitleAttribute = 'title';
 
