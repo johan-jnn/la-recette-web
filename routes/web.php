@@ -20,3 +20,7 @@ Route::get('/contact', function () {
 Route::get('/experience', function () {
     return view('pages.experience');
 });
+
+if (App::hasDebugModeEnabled()) {
+    Route::view('/test/components', 'tests.components');
+}
