@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 class ContactEntry extends Model
 {
     protected $casts = [
-        'type' => ContactType::class
+        'type' => ContactType::class,
     ];
 
     public function experiences()
     {
-        return $this->hasManyThrough(Experience::class, ContactExperience::class, 'contact_id', 'experience_id', 'id', 'id');
+        return $this->belongsToMany(Experience::class, ContactExperience::class, 'contact_id', 'experience_id', 'id', 'id');
     }
 }
