@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
-#[Fillable(['title', 'description', 'publish_date', 'duration'])]
+#[Fillable(['title', 'description', 'cover_url', 'publish_date', 'duration'])]
 class Podcast extends Model
 {
     protected $optionals = [

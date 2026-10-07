@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Articles\Schemas;
 
 use App\Models\Experience;
 use Filament\Actions\AttachAction;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -16,17 +17,36 @@ class ArticlesForm
     {
         return $schema
             ->components([
-                TextInput::make('title')
-                    ->label("Titre")
-                    ->required(),
-                TextInput::make('description')
-                    ->label("Description")
-                    ->maxLength(1024)
-                    ->required(),
-                RichEditor::make('body')
-                    ->label("Contenu")
+                FileUpload::make('thumbnail_url')
+                    ->label("Illustration")
+                    ->required()
                     ->columnSpanFull()
-                    ->required(),
+                    ->image()
+                    ->optimize()
+                    ->imageEditor()
+                    ->automaticallyCropImagesToAspectRatio()
+                    ->moveFiles()
+                    ->disk('public')
+                    ->visibility('public')
+                    ->directory('articles/thumbnails')
+                    ->imageAspectRatio('16:9'),
+
+                Section::make('Article')
+                    ->columnSpanFull()
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('title')
+                            ->label("Titre")
+                            ->required(),
+                        TextInput::make('description')
+                            ->label("Description")
+                            ->maxLength(1024)
+                            ->required(),
+                        RichEditor::make('body')
+                            ->label("Contenu")
+                            ->columnSpanFull()
+                            ->required(),
+                    ]),
 
                 Select::make('experience')
                     ->label("Experience associée")

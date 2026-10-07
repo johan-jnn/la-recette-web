@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Podcasts;
 
+use App\Enums\Filament\NavigationGroups;
 use App\Filament\Resources\Podcasts\Pages\CreatePodcast;
 use App\Filament\Resources\Podcasts\Pages\EditPodcast;
 use App\Filament\Resources\Podcasts\Pages\ListPodcasts;
@@ -9,6 +10,7 @@ use App\Filament\Resources\Podcasts\Schemas\PodcastForm;
 use App\Filament\Resources\Podcasts\Tables\PodcastsTable;
 use App\Models\Podcast;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -19,6 +21,10 @@ class PodcastResource extends Resource
     protected static ?string $model = Podcast::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'iconpark-microphone-o';
+
+    protected static UnitEnum|string|null $navigationGroup = NavigationGroups::CONTENT;
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'title';
 

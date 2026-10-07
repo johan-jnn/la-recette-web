@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ContactEntries;
 
+use App\Enums\Filament\NavigationGroups;
 use App\Filament\Resources\ContactEntries\Pages\CreateContactEntry;
 use App\Filament\Resources\ContactEntries\Pages\EditContactEntry;
 use App\Filament\Resources\ContactEntries\Pages\ListContactEntries;
@@ -15,12 +16,17 @@ use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ContactEntryResource extends Resource
 {
     protected static ?string $model = ContactEntry::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'iconpark-emaildown-o';
+
+    protected static string|UnitEnum|null $navigationGroup = NavigationGroups::ENTRIES;
+
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $recordTitleAttribute = 'object';
     protected static ?string $label = 'Prise de contact';

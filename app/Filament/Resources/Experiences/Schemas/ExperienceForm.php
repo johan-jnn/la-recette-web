@@ -2,9 +2,12 @@
 
 namespace App\Filament\Resources\Experiences\Schemas;
 
-use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 
@@ -14,11 +17,55 @@ class ExperienceForm
     {
         return $schema
             ->components([
-                TextInput::make('title')->required()->label('Titre')->columnSpanFull(),
-                RichEditor::make('presentation')->required()->label('Presentation')->columnSpanFull(),
-                Checkbox::make('use_luma_event')->label('Associer un event Luma ?')->live(),
-                TextInput::make('luma_event_id')->label('Identifiant Luma')->columnSpanFull()
-                    ->hidden(fn (Get $get) => ! $get('use_luma_event')),
+                FileUpload::make('thumbnail_url')
+                    ->label("Illustration")
+                    ->required()
+                    ->columnSpanFull()
+                    ->image()
+                    ->optimize()
+                    ->imageEditor()
+                    ->automaticallyCropImagesToAspectRatio()
+                    ->moveFiles()
+                    ->disk('public')
+                    ->visibility('public')
+                    ->directory('experiences/thumbnails')
+                    ->imageAspectRatio('16:9'),
+
+                Section::make("Détails de l'expérience")
+                    ->columnSpanFull()
+                    ->schema([
+                        TextInput::make('title')
+                            ->required()
+                            ->label('Titre')
+                            ->columnSpanFull(),
+                        RichEditor::make('presentation')
+                            ->required()
+                            ->label('Presentation')
+                            ->columnSpanFull(),
+
+                        FileUpload::make('slider_images_url')
+                            ->label('Images du slider')
+                            ->default('[]')
+                            ->multiple()
+                            ->image()
+                            ->optimize()
+                            ->imageEditor()
+                            ->moveFiles()
+                            ->disk('public')
+                            ->visibility('public')
+                            ->directory('experiences/slider_images')
+                            ->columnSpanFull(),
+                    ]),
+
+                Group::make([
+                    Toggle::make('use_luma_event')
+                        ->label('Associer un event Luma ?')
+                        ->live(),
+                    TextInput::make('luma_event_id')->label('Identifiant Luma')
+                        ->columnSpanFull()
+                        ->required()
+                        ->hidden(fn(Get $get) => !$get('use_luma_event')),
+                ])->columnSpanFull(),
             ]);
     }
 }

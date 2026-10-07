@@ -9,13 +9,17 @@ use Arr;
 use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\ViewField;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Actions;
+use Filament\Schemas\Components\Flex;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
@@ -23,12 +27,16 @@ use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Alignment;
 use Http;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Log;
+use Storage;
+use Str;
 use Uri;
+use URL;
 
 class PodcastForm
 {
-    private const string API_HOST = "https://listen-api.listennotes.com";
+    private const string API_HOST = "https://listen-api-test.listennotes.com";
     private const int MAX_SUGGESTIONS = 3;
 
     private static function searchPodcasts(string $query)
@@ -77,7 +85,7 @@ class PodcastForm
         $episode = [
             'title' => $apiPodcast['title_original'],
             'description' => $description,
-            'cover_url' => $apiPodcast['image'],
+            // 'cover_url' => $apiPodcast['image'],
             'duration' => $apiPodcast['audio_length_sec'],
             'publish_date' => Carbon::createFromTimestampMs($apiPodcast['pub_date_ms']),
             'urls' => [
@@ -112,35 +120,53 @@ class PodcastForm
     {
         return $schema
             ->components([
-                TextInput::make('title')
-                    ->label("Titre du podcast")
-                    ->live(
-                        debounce: 500,
-                        condition: fn(string $operation, Get $get) =>
-                            $operation == 'create'
-                            && !\count($get('urls'))
-                    )
-                    ->afterStateUpdated(function (?string $state, Set $set) {
-                        $set('prefilled', false);
-                        $set('podcasts_found', []);
+                Grid::make(4)
+                    ->columnSpanFull()
+                    ->schema([
+                        Group::make([
+                            FileUpload::make('cover_url')
+                                ->label('Couverture')
+                                ->moveFiles()
+                                ->required()
+                                ->image()
+                                ->optimize()
+                                ->imageAspectRatio('1:1')
+                                ->visibility('public')
+                                ->directory('podcast_covers')
+                                ->getUploadedFileNameForStorageUsing(fn(Get $get) => Str::slug($get('title')))
+                                ->imageEditor(),
+                        ])->columnSpan(1),
+                        Group::make([
+                            TextInput::make('title')
+                                ->label("Titre du podcast")
+                                ->live(
+                                    debounce: 500,
+                                    condition: fn(string $operation, Get $get) =>
+                                        $operation == 'create'
+                                        && !\count($get('urls'))
+                                )
+                                ->afterStateUpdated(function (?string $state, Set $set) {
+                                    $set('prefilled', false);
+                                    $set('podcasts_found', []);
 
-                        if (!$state) {
-                            return;
-                        }
+                                    if (!$state) {
+                                        return;
+                                    }
 
-                        $response = static::searchPodcasts($state);
-                        if (\is_array($response)) {
-                            $set('podcasts_found', Arr::map(
-                                $response,
-                                fn($item) => static::mapApiEntity($item)
-                            ));
-                        }
-                    })
-                    ->required(),
-                TextInput::make('description')
-                    ->label("Description")
-                    ->required(),
-
+                                    $response = static::searchPodcasts($state);
+                                    if (\is_array($response)) {
+                                        $set('podcasts_found', Arr::map(
+                                            $response,
+                                            fn($item) => static::mapApiEntity($item)
+                                        ));
+                                    }
+                                })
+                                ->required(),
+                            TextInput::make('description')
+                                ->label("Description")
+                                ->required(),
+                        ])->columnSpan(3)
+                    ]),
                 Section::make('Podcasts trouvées')
                     ->visible(
                         fn(string $operation, Get $get) =>
@@ -150,6 +176,14 @@ class PodcastForm
                             && !$get('prefilled')
                     )
                     ->columnSpanFull()
+                    ->headerActions([
+                        Action::make('close')
+                            ->label('Fermer')
+                            ->link()
+                            ->color('danger')
+                            ->icon('iconpark-close')
+                            ->action(fn(Set $set) => $set('podcasts_found', []))
+                    ])
                     ->schema([
                         Repeater::make('podcasts_found')
                             ->disabled()
