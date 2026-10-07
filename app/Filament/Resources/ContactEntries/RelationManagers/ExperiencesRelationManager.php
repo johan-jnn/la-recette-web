@@ -19,9 +19,11 @@ class ExperiencesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->heading('Experiences associées')
             ->headerActions([
                 CreateAction::make(),
                 AttachAction::make()
+                    ->multiple()
                     ->recordSelect(fn(Select $select) => $select->preload()),
             ])
             ->actions([

@@ -35,7 +35,8 @@ class ContactEntryInfolist
                             ->label('Téléphone'),
                         TextEntry::make('company_name')
                             ->label('Entreprise')
-                            ->default('-'),
+                            ->default('-')
+                            ->columnSpanFull(),
                     ]),
                 Section::make('Demande')
                     ->columnSpanFull()
