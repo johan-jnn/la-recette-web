@@ -18,11 +18,8 @@ use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\ViewField;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Notifications\Notification;
-use Filament\Pages\Page;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\EditRecord;
-use Filament\Schemas\Components\Actions;
-use Filament\Schemas\Components\Flex;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
@@ -31,33 +28,30 @@ use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Alignment;
 use Http;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Log;
-use Storage;
 use Str;
-use Uri;
-use URL;
 
 class PodcastForm
 {
-    private const string API_HOST = "https://listen-api-test.listennotes.com";
+    private const string API_HOST = 'https://listen-api.listennotes.com';
+
     private const int MAX_SUGGESTIONS = 3;
 
     private static function searchPodcasts(string $query)
     {
         $key = Settings::LISTEN_NOTES_API_KEY->model('value')->value;
-        if (!$key) {
+        if (! $key) {
             return;
         }
 
-        //? https://www.listennotes.com/api/docs/#get-api-v2-search
-        $searchURL = static::API_HOST . "/api/v2/search_episode_titles";
+        // ? https://www.listennotes.com/api/docs/#get-api-v2-search
+        $searchURL = static::API_HOST.'/api/v2/search_episode_titles';
 
         $response = Http::withHeader('X-ListenAPI-Key', $key)
             ->get($searchURL, [
                 'q' => $query,
                 'type' => 'episode',
-                'page_size' => static::MAX_SUGGESTIONS
+                'page_size' => static::MAX_SUGGESTIONS,
             ]);
 
         if ($response->getStatusCode() != 200) {
@@ -66,7 +60,7 @@ class PodcastForm
 
         $results = $response->json('results');
         if (\count($results) > static::MAX_SUGGESTIONS) {
-            Log::warning("The received ListenNote API response has more than" . static::MAX_SUGGESTIONS . " responses.");
+            Log::warning('The received ListenNote API response has more than'.static::MAX_SUGGESTIONS.' responses.');
             $results = \array_slice($results, 0, static::MAX_SUGGESTIONS);
         }
 
@@ -76,6 +70,7 @@ class PodcastForm
     /**
      * Converts the {@link https://www.listennotes.com/api/docs/#get-api-v2-search search response schema}
      * into a {@see Podcast}.
+     *
      * @return Podcast
      */
     private static function mapApiEntity(array $apiPodcast): array
@@ -83,7 +78,7 @@ class PodcastForm
         $description = strip_tags($apiPodcast['description_original']);
 
         if (\strlen($description) > 600) {
-            $description = substr($description, 0, 600) . '...';
+            $description = substr($description, 0, 600).'...';
         }
 
         $episode = [
@@ -96,9 +91,9 @@ class PodcastForm
             'urls' => [
                 [
                     'platform' => Platform::APPLE_MUSIC,
-                    'url' => "https://podcasts.apple.com/fr/podcast/id{$apiPodcast['itunes_id']}"
-                ]
-            ]
+                    'url' => "https://podcasts.apple.com/fr/podcast/id{$apiPodcast['itunes_id']}",
+                ],
+            ],
         ];
 
         return $episode;
@@ -125,7 +120,7 @@ class PodcastForm
     public static function usesExternalUrl(EditRecord|CreateRecord $livewire)
     {
         $url = array_first($livewire->data['cover_url'] ?? []);
-        if (!\is_string($url)) {
+        if (! \is_string($url)) {
             return false;
         }
 
@@ -150,15 +145,15 @@ class PodcastForm
                                 ->visibility('public')
                                 ->disk('public')
                                 ->directory('podcast_covers')
-                                ->formatStateUsing(fn($state) => [$state])
-                                ->hidden(fn($livewire) => static::usesExternalUrl($livewire))
-                                ->getUploadedFileNameForStorageUsing(fn(Get $get) => Str::slug($get('title')))
+                                ->formatStateUsing(fn ($state) => [$state])
+                                ->hidden(fn ($livewire) => static::usesExternalUrl($livewire))
+                                ->getUploadedFileNameForStorageUsing(fn (Get $get) => Str::slug($get('title')))
                                 ->imageEditor(),
                             Hidden::make('cover_external_url'),
                             ImageEntry::make('cover_external_url')
                                 ->label('Couverture (externe)')
-                                ->visible(fn($livewire) => static::usesExternalUrl($livewire))
-                                ->getStateUsing(fn(CreateRecord|EditRecord $livewire) => array_first($livewire->data['cover_url']))
+                                ->visible(fn ($livewire) => static::usesExternalUrl($livewire))
+                                ->getStateUsing(fn (CreateRecord|EditRecord $livewire) => array_first($livewire->data['cover_url']))
                                 ->imageSize('100%')
                                 ->hintActions([
                                     Action::make('delete_external_image')
@@ -168,23 +163,22 @@ class PodcastForm
                                         ->action(function (Set $schemaSet) {
                                             $schemaSet('cover_url', []);
                                             $schemaSet('cover_external_url', null);
-                                        })
+                                        }),
                                 ]),
                         ])->columnSpan(1),
                         Group::make([
                             TextInput::make('title')
-                                ->label("Titre du podcast")
+                                ->label('Titre du podcast')
                                 ->live(
                                     debounce: 500,
-                                    condition: fn(string $operation, Get $get) =>
-                                        $operation == 'create'
-                                        && !\count($get('urls'))
+                                    condition: fn (string $operation, Get $get) => $operation == 'create'
+                                        && ! \count($get('urls'))
                                 )
                                 ->afterStateUpdated(function (?string $state, Set $set) {
                                     $set('prefilled', false);
                                     $set('podcasts_found', []);
 
-                                    if (!$state) {
+                                    if (! $state) {
                                         return;
                                     }
 
@@ -192,23 +186,22 @@ class PodcastForm
                                     if (\is_array($response)) {
                                         $set('podcasts_found', Arr::map(
                                             $response,
-                                            fn($item) => static::mapApiEntity($item)
+                                            fn ($item) => static::mapApiEntity($item)
                                         ));
                                     }
                                 })
                                 ->required(),
                             TextInput::make('description')
-                                ->label("Description")
+                                ->label('Description')
                                 ->required(),
-                        ])->columnSpan(3)
+                        ])->columnSpan(3),
                     ]),
                 Section::make('Podcasts trouvées')
                     ->visible(
-                        fn(string $operation, Get $get) =>
-                            $operation == "create"
-                            && !\count($get('urls'))
+                        fn (string $operation, Get $get) => $operation == 'create'
+                            && ! \count($get('urls'))
                             && \count($get('podcasts_found') ?? [])
-                            && !$get('prefilled')
+                            && ! $get('prefilled')
                     )
                     ->columnSpanFull()
                     ->headerActions([
@@ -217,7 +210,7 @@ class PodcastForm
                             ->link()
                             ->color('danger')
                             ->icon('iconpark-close')
-                            ->action(fn(Set $set) => $set('podcasts_found', []))
+                            ->action(fn (Set $set) => $set('podcasts_found', [])),
                     ])
                     ->schema([
                         Repeater::make('podcasts_found')
@@ -229,41 +222,41 @@ class PodcastForm
                                     ->contained(false)
                                     ->disableLabel()
                                     ->footerActions([
-                                        static::getFillAction()
+                                        static::getFillAction(),
                                     ])
                                     ->footerActionsAlignment(Alignment::End)
-                                    ->components(fn(array $state) => [
-                                        ViewField::make('card')->view('filament.forms.listenNoteResponseCard', $state)
-                                    ])
-                            ])
+                                    ->components(fn (array $state) => [
+                                        ViewField::make('card')->view('filament.forms.listenNoteResponseCard', $state),
+                                    ]),
+                            ]),
                     ]),
 
                 DateTimePicker::make('publish_date')
-                    ->label("Date de publication")
+                    ->label('Date de publication')
                     ->required(),
                 TimePicker::make('duration')
-                    ->label("Durée")
+                    ->label('Durée')
                     ->required(),
 
                 Repeater::make('urls')
                     ->columnSpanFull()
                     ->label("Liens de l'épisode")
                     ->default([])
-                    ->live(true, condition: fn(string $operation) => $operation == 'create')
+                    ->live(true, condition: fn (string $operation) => $operation == 'create')
                     ->required()
-                    ->addActionLabel("Ajouter une platforme")
+                    ->addActionLabel('Ajouter une platforme')
                     ->relationship()
                     ->schema([
                         Select::make('platform')
                             ->required()
-                            ->label("Platforme")
+                            ->label('Platforme')
                             ->options(Platform::class)
                             ->distinct(),
                         TextInput::make('url')
                             ->url()
-                            ->label("URL")
-                            ->required()
-                    ])
+                            ->label('URL')
+                            ->required(),
+                    ]),
             ]);
     }
 }

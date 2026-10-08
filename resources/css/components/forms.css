@@ -1,0 +1,12 @@
+/*
+ * Champs de formulaire. Utilisés par <x-forms.input> et <x-forms.textarea> via la prop "tone".
+ * Les états d'erreur / de focus sont ajoutés par les composants.
+ */
+@utility field-input {
+    @apply w-full rounded-field border bg-white px-4 py-3 text-base text-ink transition-colors placeholder:text-muted focus:outline-none focus:ring-2;
+}
+
+/* Variante sur fond vert foncé (maquette "Toutes les expériences") */
+@utility field-input-dark {
+    @apply w-full min-h-12 rounded-input border bg-cream px-3 py-3.5 text-sm text-ink transition-colors placeholder:text-subtle focus:outline-none focus:ring-2;
+}

@@ -1,0 +1,27 @@
+/*
+ * Échelle typographique de la maquette (taille + interlignage).
+ * Ex. : text-display, text-title, text-subtitle, text-lead, text-body-lg.
+ */
+@theme {
+    --text-display: 4rem;          /* 64px — titre du hero */
+    --text-display--line-height: 1.08;
+
+    --text-quote: 3rem;            /* 48px — bandeau citation */
+    --text-quote--line-height: 1.25;
+    --text-quote--letter-spacing: -0.02em;
+
+    --text-title: 2.125rem;        /* 34px — titres de section */
+    --text-title--line-height: 1.15;
+
+    --text-subtitle: 1.4375rem;    /* 23px — titres de carte */
+    --text-subtitle--line-height: 1.15;
+
+    --text-lead: 1.25rem;          /* 20px — chapeau du hero */
+    --text-lead--line-height: 1.5;
+
+    --text-body-lg: 1.125rem;      /* 18px — paragraphes */
+    --text-body-lg--line-height: 1.55;
+
+    --text-question: 1.0625rem;    /* 17px — questions de la FAQ */
+    --text-question--line-height: 1.3;
+}

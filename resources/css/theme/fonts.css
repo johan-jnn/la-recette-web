@@ -1,0 +1,10 @@
+/*
+ * Polices — Montserrat est chargée via le plugin fonts de laravel-vite-plugin
+ * (vite.config.js) et injectée dans le <head> par la directive @fonts.
+ */
+@theme {
+    --font-sans:
+        "Montserrat", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}

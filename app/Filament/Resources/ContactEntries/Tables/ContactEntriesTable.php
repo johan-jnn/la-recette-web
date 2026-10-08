@@ -59,7 +59,7 @@ class ContactEntriesTable
                 SelectFilter::make('company_name')
                     ->multiple()
                     ->label('Entreprise(s)')
-                    ->options(ContactEntry::groupBy('company_name')->pluck('company_name', 'company_name'))
+                    ->options(ContactEntry::whereNotNull('company_name')->groupBy('company_name')->pluck('company_name', 'company_name'))
                     ->searchable(),
                 SelectFilter::make('type')
                     ->multiple()

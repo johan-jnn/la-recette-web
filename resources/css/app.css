@@ -1,14 +1,20 @@
 @import "tailwindcss";
 
+/* Thème (tokens Tailwind) */
+@import "./theme/fonts.css";
+@import "./theme/colors.css";
+@import "./theme/typography.css";
+@import "./theme/shapes.css";
+
+/* Styles de base et composants */
+@import "./base.css";
+@import "./components/buttons.css";
+@import "./components/forms.css";
+@import "./components/utilities.css";
+
+/* Fichiers analysés par Tailwind pour générer les classes */
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
-
-@source '../views/components/*.php';
-@source '../views/pages/*.php';
-
-@theme {
-    --font-sans:
-        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji";
-}
+@source '../views/components/**/*.blade.php';
+@source '../views/pages/*.blade.php';
+@source '../views/layouts/*.blade.php';

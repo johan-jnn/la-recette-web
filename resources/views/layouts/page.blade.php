@@ -1,10 +1,12 @@
 @extends('layouts.html')
 
 @push('body')
-    <x-header :nav="$nav ?? null" :cta="$cta ?? null" useSticky="{{ $navSticky ?? false ? true : false }}" />
+    <x-layout.header :nav="$nav ?? null" :cta="$cta ?? null" :sticky="$navSticky ?? true" />
 
-    {{ $slot ?? '' }}
-    @stack('main')
+    <main class="w-full">
+        {{ $slot ?? '' }}
+        @stack('main')
+    </main>
 
-    <x-footer />
+    <x-layout.footer />
 @endpush

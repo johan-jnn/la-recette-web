@@ -9,7 +9,8 @@
     </title>
     <meta name="description" content="@yield('description', $description ?? env('APP_NAME'))">
 
-    @vite('resources/css/app.css')
+    @fonts
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('head')
 </head>
