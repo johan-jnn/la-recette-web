@@ -40,12 +40,12 @@ class PodcastForm
     private static function searchPodcasts(string $query)
     {
         $key = Settings::LISTEN_NOTES_API_KEY->model('value')->value;
-        if (! $key) {
+        if (!$key) {
             return;
         }
 
         // ? https://www.listennotes.com/api/docs/#get-api-v2-search
-        $searchURL = static::API_HOST.'/api/v2/search_episode_titles';
+        $searchURL = static::API_HOST . '/api/v2/search_episode_titles';
 
         $response = Http::withHeader('X-ListenAPI-Key', $key)
             ->get($searchURL, [
@@ -60,7 +60,7 @@ class PodcastForm
 
         $results = $response->json('results');
         if (\count($results) > static::MAX_SUGGESTIONS) {
-            Log::warning('The received ListenNote API response has more than'.static::MAX_SUGGESTIONS.' responses.');
+            Log::warning('The received ListenNote API response has more than' . static::MAX_SUGGESTIONS . ' responses.');
             $results = \array_slice($results, 0, static::MAX_SUGGESTIONS);
         }
 
@@ -78,14 +78,14 @@ class PodcastForm
         $description = strip_tags($apiPodcast['description_original']);
 
         if (\strlen($description) > 600) {
-            $description = substr($description, 0, 600).'...';
+            $description = substr($description, 0, 600) . '...';
         }
 
         $episode = [
             'title' => $apiPodcast['title_original'],
             'description' => $description,
-            'cover_url' => $apiPodcast['image'],
-            'cover_external_url' => $apiPodcast['image'],
+            'cover_url' => static::encodeUrl($apiPodcast['image']),
+            'cover_external_url' => static::encodeUrl($apiPodcast['image']),
             'duration' => $apiPodcast['audio_length_sec'],
             'publish_date' => Carbon::createFromTimestampMs($apiPodcast['pub_date_ms']),
             'urls' => [
@@ -117,10 +117,24 @@ class PodcastForm
             });
     }
 
+    /**
+     * Encode les caractères non ASCII d'une URL (ex. « é » dans les images ListenNotes).
+     * Sans cela, filter_var(FILTER_VALIDATE_URL) la rejette et Filament la traite comme
+     * un chemin du disque "public", ce qui casse l'aperçu de la couverture.
+     */
+    public static function encodeUrl(?string $url): ?string
+    {
+        if (blank($url)) {
+            return $url;
+        }
+
+        return preg_replace_callback('/[^\x00-\x7F]+/u', fn (array $matches) => rawurlencode($matches[0]), $url);
+    }
+
     public static function usesExternalUrl(EditRecord|CreateRecord $livewire)
     {
         $url = array_first($livewire->data['cover_url'] ?? []);
-        if (! \is_string($url)) {
+        if (!\is_string($url)) {
             return false;
         }
 
@@ -145,15 +159,15 @@ class PodcastForm
                                 ->visibility('public')
                                 ->disk('public')
                                 ->directory('podcast_covers')
-                                ->formatStateUsing(fn ($state) => [$state])
-                                ->hidden(fn ($livewire) => static::usesExternalUrl($livewire))
-                                ->getUploadedFileNameForStorageUsing(fn (Get $get) => Str::slug($get('title')))
+                                ->formatStateUsing(fn($state) => [$state])
+                                ->hidden(fn($livewire) => static::usesExternalUrl($livewire))
+                                ->getUploadedFileNameForStorageUsing(fn(Get $get) => Str::slug($get('title')))
                                 ->imageEditor(),
                             Hidden::make('cover_external_url'),
                             ImageEntry::make('cover_external_url')
                                 ->label('Couverture (externe)')
-                                ->visible(fn ($livewire) => static::usesExternalUrl($livewire))
-                                ->getStateUsing(fn (CreateRecord|EditRecord $livewire) => array_first($livewire->data['cover_url']))
+                                ->visible(fn($livewire) => static::usesExternalUrl($livewire))
+                                ->getStateUsing(fn(CreateRecord|EditRecord $livewire) => static::encodeUrl(array_first($livewire->data['cover_url'] ?? [])))
                                 ->imageSize('100%')
                                 ->hintActions([
                                     Action::make('delete_external_image')
@@ -171,14 +185,14 @@ class PodcastForm
                                 ->label('Titre du podcast')
                                 ->live(
                                     debounce: 500,
-                                    condition: fn (string $operation, Get $get) => $operation == 'create'
-                                        && ! \count($get('urls'))
+                                    condition: fn(string $operation, Get $get) => $operation == 'create'
+                                        && !\count($get('urls'))
                                 )
                                 ->afterStateUpdated(function (?string $state, Set $set) {
                                     $set('prefilled', false);
                                     $set('podcasts_found', []);
 
-                                    if (! $state) {
+                                    if (!$state) {
                                         return;
                                     }
 
@@ -186,7 +200,7 @@ class PodcastForm
                                     if (\is_array($response)) {
                                         $set('podcasts_found', Arr::map(
                                             $response,
-                                            fn ($item) => static::mapApiEntity($item)
+                                            fn($item) => static::mapApiEntity($item)
                                         ));
                                     }
                                 })
@@ -198,10 +212,10 @@ class PodcastForm
                     ]),
                 Section::make('Podcasts trouvées')
                     ->visible(
-                        fn (string $operation, Get $get) => $operation == 'create'
-                            && ! \count($get('urls'))
+                        fn(string $operation, Get $get) => $operation == 'create'
+                            && !\count($get('urls'))
                             && \count($get('podcasts_found') ?? [])
-                            && ! $get('prefilled')
+                            && !$get('prefilled')
                     )
                     ->columnSpanFull()
                     ->headerActions([
@@ -210,7 +224,7 @@ class PodcastForm
                             ->link()
                             ->color('danger')
                             ->icon('iconpark-close')
-                            ->action(fn (Set $set) => $set('podcasts_found', [])),
+                            ->action(fn(Set $set) => $set('podcasts_found', [])),
                     ])
                     ->schema([
                         Repeater::make('podcasts_found')
@@ -225,7 +239,7 @@ class PodcastForm
                                         static::getFillAction(),
                                     ])
                                     ->footerActionsAlignment(Alignment::End)
-                                    ->components(fn (array $state) => [
+                                    ->components(fn(array $state) => [
                                         ViewField::make('card')->view('filament.forms.listenNoteResponseCard', $state),
                                     ]),
                             ]),
@@ -242,7 +256,7 @@ class PodcastForm
                     ->columnSpanFull()
                     ->label("Liens de l'épisode")
                     ->default([])
-                    ->live(true, condition: fn (string $operation) => $operation == 'create')
+                    ->live(true, condition: fn(string $operation) => $operation == 'create')
                     ->required()
                     ->addActionLabel('Ajouter une platforme')
                     ->relationship()
