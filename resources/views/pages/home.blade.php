@@ -3,7 +3,7 @@
 @section('title', 'Maison La Recette — Accueil')
 @section('description', 'Des histoires de celles et ceux qui font la cuisine, et des expériences pour se rencontrer autour de la table.')
 
-@section('main')
+@push('main')
     {{-- Section 1 : Hero de présentation --}}
     <x-sections.home.hero />
 
@@ -27,4 +27,4 @@
 
     {{-- Section 8 : Newsletter --}}
     <x-sections.home.newsletter />
-@endsection
+@endpush
