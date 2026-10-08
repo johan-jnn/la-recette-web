@@ -5,8 +5,7 @@
 ])
 
 @php
-    // Pas encore de route "contact.store" : on retombe sur la page contact
-    $action ??= \Illuminate\Support\Facades\Route::has('contact.store') ? route('contact.store') : route('contact.index');
+    $action ??= route('contact.store');
 
     // Types de demande depuis l'enum ContactType (identique à l'admin Filament)
     $contactTypes = collect(\App\Enums\ContactType::cases())
