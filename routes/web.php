@@ -19,6 +19,10 @@ Route::get('/blog', function () {
     return view('pages.article');
 })->name('articles.index');
 
+Route::get('/blog/{article}', function (App\Models\Article $article) {
+    return view('pages.articleDetail', ['article' => $article->load('experience')]);
+})->name('articles.show');
+
 Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact.index');

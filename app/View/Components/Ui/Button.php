@@ -13,7 +13,7 @@ class Button extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public string $url,
+        public ?string $url = null,
         public ?string $label = null,
         public bool $secondary = false,
         public string $extraClass = "",

@@ -13,6 +13,14 @@
     </x-slot:decor>
 
     <x-ui.section-heading title="Les derniers podcasts">
+        <x-ui.modal title="Trouver un podcast" description="Choisissez vos critères : nous vous afficherons les épisodes correspondants.">
+            <x-slot:trigger>
+                <x-ui.button variant="sage" aria-haspopup="dialog">Trouver un podcast</x-ui.button>
+            </x-slot:trigger>
+
+            <x-forms.podcast-search-form layout="stacked" with-sort />
+        </x-ui.modal>
+
         <x-ui.button :url="route('podcasts.index')" variant="outline">Trouver mon épisode</x-ui.button>
         <x-ui.button :url="route('podcasts.index') . '#episodes'" variant="rose">Les playlists</x-ui.button>
     </x-ui.section-heading>
