@@ -10,6 +10,15 @@ class EditPodcast extends EditRecord
 {
     protected static string $resource = PodcastResource::class;
 
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if ($data['cover_external_url'] && !isset($data['cover_url'])) {
+            $data['cover_url'] = $data['cover_external_url'];
+        }
+
+        return $data;
+    }
+
     protected function getHeaderActions(): array
     {
         return [

@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -17,6 +18,9 @@ use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\ViewField;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Notifications\Notification;
+use Filament\Pages\Page;
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Flex;
 use Filament\Schemas\Components\Grid;
@@ -86,6 +90,7 @@ class PodcastForm
             'title' => $apiPodcast['title_original'],
             'description' => $description,
             'cover_url' => $apiPodcast['image'],
+            'cover_external_url' => $apiPodcast['image'],
             'duration' => $apiPodcast['audio_length_sec'],
             'publish_date' => Carbon::createFromTimestampMs($apiPodcast['pub_date_ms']),
             'urls' => [
@@ -109,11 +114,22 @@ class PodcastForm
                 }
 
                 $schemaSet('../../prefilled', true);
+                $schemaSet('../../external_url', true);
                 Notification::make()
                     ->title('Champs pré-remplis !')
                     ->success()
                     ->send();
             });
+    }
+
+    public static function usesExternalUrl(EditRecord|CreateRecord $livewire)
+    {
+        $url = array_first($livewire->data['cover_url'] ?? []);
+        if (!\is_string($url)) {
+            return false;
+        }
+
+        return Str::startsWith($url, ['http://', 'https://']);
     }
 
     public static function configure(Schema $schema): Schema
@@ -132,9 +148,28 @@ class PodcastForm
                                 ->optimize()
                                 ->imageAspectRatio('1:1')
                                 ->visibility('public')
+                                ->disk('public')
                                 ->directory('podcast_covers')
+                                ->formatStateUsing(fn($state) => [$state])
+                                ->hidden(fn($livewire) => static::usesExternalUrl($livewire))
                                 ->getUploadedFileNameForStorageUsing(fn(Get $get) => Str::slug($get('title')))
                                 ->imageEditor(),
+                            Hidden::make('cover_external_url'),
+                            ImageEntry::make('cover_external_url')
+                                ->label('Couverture (externe)')
+                                ->visible(fn($livewire) => static::usesExternalUrl($livewire))
+                                ->getStateUsing(fn(CreateRecord|EditRecord $livewire) => array_first($livewire->data['cover_url']))
+                                ->imageSize('100%')
+                                ->hintActions([
+                                    Action::make('delete_external_image')
+                                        ->label('Supprimer')
+                                        ->color('danger')
+                                        ->link()
+                                        ->action(function (Set $schemaSet) {
+                                            $schemaSet('cover_url', []);
+                                            $schemaSet('cover_external_url', null);
+                                        })
+                                ]),
                         ])->columnSpan(1),
                         Group::make([
                             TextInput::make('title')
@@ -223,7 +258,7 @@ class PodcastForm
                             ->required()
                             ->label("Platforme")
                             ->options(Platform::class)
-                            ->unique(),
+                            ->distinct(),
                         TextInput::make('url')
                             ->url()
                             ->label("URL")
