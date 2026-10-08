@@ -6,8 +6,8 @@
 <div {{ $attributes->merge(['class' => 'grid grid-cols-1 lg:grid-cols-[1fr_600px] gap-8 text-white']) }}>
     <div class="flex flex-col gap-5">
         <h2 class="text-title font-bold">Gardons le lien</h2>
-        <p class="text-body-lg">Recevez les prochains épisodes et les expériences à découvrir.</p>
-        <p class="text-sm leading-[1.55]">Newsletter · rythme d’envoi à préciser.</p>
+        <p class="text-body-lg">Recevez chaque mois le nouvel épisode du podcast et les prochaines expériences.</p>
+        <p class="text-sm leading-[1.55]">Une newsletter par mois, au rythme du podcast.</p>
     </div>
 
     <form action="{{ $action }}" method="POST" class="flex flex-col gap-5">

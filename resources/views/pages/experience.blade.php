@@ -1,7 +1,7 @@
 @extends('layouts.page')
 
 @section('title', 'Maison La Recette — Expériences')
-@section('description', 'Ateliers, rencontres et tables partagées : découvrez des moments à vivre pour goûter, apprendre et échanger.')
+@section('description', 'Ateliers, food tours et immersions co-construits avec des chef·fes, artisan·es et producteur·trices engagé·es, pour découvrir, cuisiner et apprendre ensemble.')
 
 @push('main')
     <x-sections.experiences.intro />

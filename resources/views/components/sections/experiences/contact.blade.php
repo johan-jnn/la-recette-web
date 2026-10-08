@@ -1,6 +1,6 @@
 @props([
     'title' => 'Contactez-nous',
-    'description' => 'Une question sur une expérience, une privatisation ou un moment pour votre équipe ? Écrivez-nous.',
+    'description' => 'Teambuilding, séminaire, afterwork ou déjeuner d’équipe ? Dans vos locaux, chez nos partenaires ou à la ferme, de 2 h à une journée complète : demandez votre devis sur mesure.',
 ])
 
 {{-- Bloc contact vert clair avec formulaire compact et flèche décorative --}}
@@ -9,7 +9,7 @@
         <img src="{{ asset('images/decor/arrow.svg') }}" alt="" width="393" height="417" class="max-w-none w-[393px] h-[416.73px] -rotate-[135deg]" />
     </div>
 
-    <div class="relative mx-auto flex max-w-[1120px] flex-col items-center gap-[50px]">
+    <div data-reveal class="relative mx-auto flex max-w-[1120px] flex-col items-center gap-[50px]">
         <div class="flex flex-col items-center gap-5 text-center text-forest">
             <h2 class="text-3xl md:text-quote font-medium">{{ $title }}</h2>
             <p class="text-base leading-6">{{ $description }}</p>

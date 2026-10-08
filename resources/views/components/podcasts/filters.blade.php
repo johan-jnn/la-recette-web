@@ -1,6 +1,6 @@
 {{-- Barre de recherche d'épisodes de la page podcast --}}
 <x-layout.section bg="white">
-    <div class="flex flex-col gap-8 text-forest">
+    <div data-reveal class="flex flex-col gap-8 text-forest">
         <h2 class="text-subtitle font-bold">Rechercher un épisode</h2>
 
         <x-forms.podcast-search-form>

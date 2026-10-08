@@ -1,0 +1,41 @@
+/* Animations GSAP (resources/js/animations) */
+
+/* Rideau de transition : couvre la page tant que GSAP ne l'a pas révélée */
+.page-transition {
+    visibility: hidden;
+}
+
+html.js .page-transition {
+    visibility: visible;
+}
+
+/* Sécurité : si le JS ne se charge pas, le rideau disparaît quand même */
+html.js:not(.animations-ready) .page-transition {
+    animation: page-transition-failsafe 0s 3s forwards;
+}
+
+@keyframes page-transition-failsafe {
+    to {
+        visibility: hidden;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-transition {
+        display: none;
+    }
+}
+
+/* Smooth scroll : le header sort du contenu transformé et devient fixe */
+html.has-smoother {
+    scroll-behavior: auto;
+}
+
+html.has-smoother [data-site-header] {
+    position: fixed;
+    inset-inline: 0;
+}
+
+html.has-smoother #smooth-content {
+    padding-top: 94px; /* hauteur de la barre du header */
+}

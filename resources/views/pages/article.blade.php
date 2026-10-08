@@ -1,13 +1,13 @@
 @extends('layouts.page')
 
 @section('title', 'Maison La Recette — Blog')
-@section('description', 'Nos articles et ressources autour de la cuisine, des terroirs et des rencontres.')
+@section('description', 'Nos articles pour décrypter les enjeux et les solutions de nos assiettes.')
 
 @push('main')
     <x-ui.page-hero
         :breadcrumb="[['label' => 'Blog']]"
         title="Suivez nos actualités"
-        description="Des articles et des ressources pour prolonger les rencontres du podcast et des expériences."
+        description="Des articles pour prolonger les rencontres du podcast et des expériences, et décrypter les enjeux et solutions de nos assiettes."
     />
 
     <x-sections.articles.latest />

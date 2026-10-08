@@ -2,8 +2,8 @@
     'title' => 'Bienvenue dans Maison la recette',
     'image' => asset('images/home/bienvenue.jpg'),
     'paragraphs' => [
-        'Écouter un parcours, découvrir un savoir-faire, cuisiner ensemble : la recette commence par une rencontre.',
-        'Maison la recette relie des récits culinaires à des moments vécus, pour les curieux comme pour les équipes.',
+        'Nourrir, transmettre, créer des liens, préserver sa santé, protéger la planète : notre alimentation a un impact immense et nous donne à chacun·e le pouvoir d’agir avec sa fourchette.',
+        'Notre mission : accélérer la transition alimentaire. Un podcast pour inspirer, un studio pour faire entendre la voix des organisations engagées, et des expériences pour passer à l’action.',
     ],
 ])
 

@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-3 text-forest">
         <h3 class="text-subtitle font-bold">Participer ou privatiser</h3>
         <p class="text-base leading-[1.55]">
-            Vous souhaitez réserver pour un groupe, une entreprise ou obtenir une date sur-mesure ?
+            Teambuilding, séminaire, afterwork ou déjeuner : demandez un devis pour une expérience clé en main ou sur mesure.
         </p>
     </div>
 

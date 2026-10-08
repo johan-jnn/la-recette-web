@@ -27,7 +27,7 @@
         <x-ui.sort-menu :options="['latest' => 'Les plus récents', 'oldest' => 'Les plus anciens']" />
     </x-ui.section-heading>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div data-reveal-stagger class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @forelse ($podcasts as $podcast)
             <x-podcasts.episode-card :podcast="$podcast" />
         @empty

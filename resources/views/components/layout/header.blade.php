@@ -21,6 +21,7 @@
 
 <header
     class="{{ $sticky ? 'sticky' : 'relative' }} top-0 z-50 w-full bg-cream"
+    data-site-header
     x-data="{ open: false }"
 >
     <div class="flex h-[94px] items-center justify-between gap-6 pl-6 pr-4 md:pl-[77px] md:pr-8">

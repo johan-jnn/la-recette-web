@@ -9,6 +9,9 @@
     </title>
     <meta name="description" content="@yield('description', $description ?? env('APP_NAME'))">
 
+    {{-- Active l'état initial des animations avant le premier rendu --}}
+    <script>document.documentElement.classList.add('js')</script>
+
     @fonts
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 

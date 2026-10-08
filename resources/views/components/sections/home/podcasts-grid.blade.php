@@ -12,7 +12,7 @@
         <x-ui.wave class="bottom-0" />
     </x-slot:decor>
 
-    <x-ui.section-heading title="Les derniers podcasts">
+    <x-ui.section-heading title="Les derniers épisodes">
         <x-ui.modal title="Trouver un podcast" description="Choisissez vos critères : nous vous afficherons les épisodes correspondants.">
             <x-slot:trigger>
                 <x-ui.button variant="sage" aria-haspopup="dialog">Trouver un podcast</x-ui.button>

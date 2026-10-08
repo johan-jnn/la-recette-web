@@ -1,8 +1,8 @@
 @props([
     'items' => null,
-    'title' => 'FAQ · Réservation & participation',
+    'title' => 'FAQ · Expériences & réservation',
     'subtitle' => 'Avant de réserver',
-    'description' => 'Retrouvez ici les informations utiles pour préparer votre participation.',
+    'description' => 'Ateliers, food tours ou immersions : tout ce qu’il faut savoir pour préparer votre expérience.',
     'bg' => 'cream',
 ])
 
@@ -10,27 +10,27 @@
     // FAQ non administrable pour l'instant (pas de modèle dédié)
     $items ??= [
         [
-            'question' => 'Comment confirmer ma réservation ?',
-            'answer' => 'Votre confirmation vous est envoyée par mail via un lien, ajoutable à votre calendrier.',
+            'question' => 'Comment réserver une expérience ?',
+            'answer' => 'En tant que particulier, réservez et payez en ligne depuis la fiche de l’expérience. Pour une entreprise, faites une demande de devis via le formulaire de contact.',
         ],
         [
-            'question' => 'Quels sont les horaires et le lieu ?',
-            'answer' => 'Les horaires et adresses exactes sont communiqués sur chaque fiche expérience et rappelés par message.',
+            'question' => 'Où et combien de temps durent les expériences ?',
+            'answer' => 'Dans vos locaux, chez nos partenaires à Lyon ou en immersion chez nos chef·fes et producteur·trices. Comptez 2 h pour un atelier, 3 h pour un food tour et jusqu’à une journée complète pour une immersion.',
         ],
         [
-            'question' => 'Puis-je annuler ou modifier ma réservation ?',
-            'answer' => 'Vous pouvez modifier ou annuler jusqu’à 48h avant le début de l’événement directement par e-mail.',
+            'question' => 'Proposez-vous des expériences pour les entreprises ?',
+            'answer' => 'Oui : teambuildings, séminaires, afterworks ou déjeuners, nos expériences sont clés en main ou conçues sur mesure pour fédérer vos équipes.',
         ],
         [
-            'question' => 'Quels documents ou informations me seront envoyés ?',
-            'answer' => 'Une confirmation détaillée avec accès, consignes pratiques et menu indicatif vous sera transmise.',
+            'question' => 'Quels produits sont utilisés ?',
+            'answer' => 'Tous nos produits sont bruts, locaux, de saison et issus de l’agriculture biologique. Notre matériel et notre vaisselle sont réutilisables et nous valorisons les biodéchets.',
         ],
     ];
 @endphp
 
 <x-layout.section id="faq" :bg="$bg">
     <div class="flex flex-col gap-8 text-forest">
-        <h2 class="text-title font-bold">{{ $title }}</h2>
+        <h2 data-reveal class="text-title font-bold">{{ $title }}</h2>
 
         <div class="flex flex-col gap-5">
             @if ($subtitle)
@@ -40,7 +40,7 @@
                 <p class="text-body-lg">{{ $description }}</p>
             @endif
 
-            <div class="flex flex-col gap-3">
+            <div data-reveal-stagger class="flex flex-col gap-3">
                 @foreach ($items as $item)
                     <x-ui.faq-item :question="$item['question']" :answer="$item['answer']" :open="$loop->first" />
                 @endforeach

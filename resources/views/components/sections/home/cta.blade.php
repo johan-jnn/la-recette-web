@@ -1,5 +1,5 @@
 @props([
-    'quote' => 'Des histoires à écouter, des moments à partager.',
+    'quote' => 'Inspirer, sensibiliser, donner le pouvoir d’agir.',
     'label' => 'Découvrir les actualités',
     'url' => null,
 ])

@@ -2,8 +2,8 @@
     'title' => 'Maison la recette',
     'image' => asset('images/home/bienvenue.jpg'),
     'paragraphs' => [
-        'Un espace pour écouter les parcours de celles et ceux qui font la cuisine et pour prolonger ces rencontres autour de la table.',
-        'Le podcast donne la parole. Les expériences invitent à découvrir, à faire ensemble et à partager. Deux façons d’ouvrir la conversation autour de ce qui nous nourrit.',
+        'Un quart de notre empreinte carbone est lié à notre alimentation. En France, 20 tonnes de nourriture sont jetées chaque minute, et un·e Français·e sur trois souffre de maladies chroniques directement liées à son alimentation.',
+        'Nourrir, transmettre, créer des liens, préserver sa santé, protéger la planète : notre alimentation a un impact immense et nous donne à chacun·e le pouvoir d’agir avec sa fourchette.',
     ],
 ])
 

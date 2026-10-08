@@ -35,14 +35,14 @@
     <x-ui.decor name="footer-shape" width="558" height="501" class="right-[-5.9%] bottom-[-17%] w-[558px] h-[501px] hidden md:block" />
 
     <div class="relative max-w-page mx-auto flex flex-col gap-10">
-        <x-layout.newsletter />
+        <x-layout.newsletter data-reveal />
 
         <hr class="border-0 h-px bg-line" />
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[300px_190px_170px_280px] lg:justify-between gap-10">
+        <div data-reveal-stagger class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[300px_190px_170px_280px] lg:justify-between gap-10">
             <div class="flex flex-col gap-5">
                 <p class="text-[22px] font-bold uppercase">{{ config('app.name', 'Maison La Recette') }}</p>
-                <p class="text-sm leading-[1.55]">Des histoires à écouter. Des moments à partager.</p>
+                <p class="text-sm leading-[1.55]">Podcast, studio et expériences pour accélérer la transition alimentaire.</p>
             </div>
 
             @foreach ($footerNavs as $heading => $links)

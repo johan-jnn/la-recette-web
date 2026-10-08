@@ -9,6 +9,7 @@
     src="{{ asset("images/decor/{$name}.svg") }}"
     alt=""
     aria-hidden="true"
+    data-parallax
     width="{{ $width }}"
     height="{{ $height }}"
     {{ $attributes->merge(['class' => 'pointer-events-none absolute select-none max-w-none']) }}

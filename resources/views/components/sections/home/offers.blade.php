@@ -1,7 +1,7 @@
 @props([
-    'eyebrow' => 'Découvrez nos offres podcasts',
-    'title' => 'Trouve l’épisode qui te convient au mieux ou crée le tien !',
-    'description' => 'Écoute notre podcast ou contacte-nous pour créer le tien !',
+    'eyebrow' => 'Offre podcast',
+    'title' => 'Amplifiez votre impact grâce au podcast',
+    'description' => 'La recette met son expertise en création éditoriale et en réalisation audio et vidéo au service des acteur·ices de l’alimentation durable : sponsoring, production de podcasts de l’idée à la diffusion, conférences et tables rondes enregistrées lors de vos évènements.',
     'image' => asset('images/home/offres-podcast.jpg'),
 ])
 
@@ -15,7 +15,7 @@
         <p>{{ $description }}</p>
 
         <x-slot:actions>
-            <x-ui.button :url="route('podcasts.index')" variant="white">Trouver mon épisode</x-ui.button>
+            <x-ui.button :url="route('podcasts.index')" variant="white">Écouter le podcast</x-ui.button>
             <x-ui.button :url="route('contact.index')" variant="sun-light">Découvrir nos offres podcast</x-ui.button>
         </x-slot:actions>
     </x-ui.media-text>

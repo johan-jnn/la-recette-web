@@ -1,7 +1,7 @@
 @props([
-    'eyebrow' => 'Mission & valeurs',
-    'title' => 'Créer du lien par la cuisine',
-    'description' => 'Mettre les personnes et leurs savoir-faire au cœur du récit, puis faire de la table un lieu de découverte et de partage.',
+    'eyebrow' => 'Notre mission',
+    'title' => 'Accélérer la transition alimentaire',
+    'description' => 'Mettre en lumière celles et ceux qui cultivent, fabriquent et cuisinent de façon durable, et donner à chacun·e les clés pour agir.',
     'values' => null,
 ])
 
@@ -9,16 +9,16 @@
     // Valeurs non administrables pour l'instant
     $values ??= [
         [
-            'title' => 'La curiosité',
-            'description' => 'Écouter des parcours singuliers et découvrir ce qui se cache derrière un produit, un geste ou un plat.',
+            'title' => 'Inspirer',
+            'description' => 'Créer des rencontres avec des acteur·ices du changement qui cultivent, fabriquent et cuisinent de façon durable.',
         ],
         [
-            'title' => 'La transmission',
-            'description' => 'Donner une place aux savoir-faire, aux souvenirs et aux recettes qui passent d’une personne à l’autre.',
+            'title' => 'Sensibiliser',
+            'description' => 'Raconter leurs histoires et mettre en lumière leurs initiatives et leurs pratiques.',
         ],
         [
-            'title' => 'Le partage',
-            'description' => 'Favoriser des rencontres où chacun peut apprendre, participer et nourrir la conversation.',
+            'title' => 'Donner le pouvoir d’agir',
+            'description' => 'Concevoir des expériences concrètes pour explorer les coulisses et les solutions de notre alimentation.',
         ],
     ];
 @endphp
@@ -26,7 +26,7 @@
 <x-layout.section>
     <x-ui.section-heading :eyebrow="mb_strtoupper($eyebrow)" :title="$title" :description="$description" />
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div data-reveal-stagger class="grid grid-cols-1 md:grid-cols-3 gap-8">
         @foreach ($values as $value)
             <x-ui.text-card :title="$value['title']" :description="$value['description']" />
         @endforeach

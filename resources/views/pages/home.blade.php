@@ -1,7 +1,7 @@
 @extends('layouts.page')
 
 @section('title', 'Maison La Recette — Accueil')
-@section('description', 'Des histoires de celles et ceux qui font la cuisine, et des expériences pour se rencontrer autour de la table.')
+@section('description', 'La recette part à la rencontre des artisan·es, chef·fes et producteur·trices qui façonnent l’alimentation de demain, pour décrypter les enjeux et les solutions de nos assiettes.')
 
 @push('main')
     <x-sections.home.hero />

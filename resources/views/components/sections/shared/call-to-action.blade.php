@@ -7,7 +7,7 @@
 
 {{-- Bandeau d'appel à l'action : titre, description et boutons (slot) --}}
 <x-layout.section :bg="$bg">
-    <div @class([
+    <div data-reveal @class([
         'flex flex-col gap-8 text-forest',
         'md:flex-row md:items-center md:justify-between' => $layout === 'split',
     ])>

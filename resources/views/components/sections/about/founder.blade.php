@@ -3,13 +3,14 @@
 ])
 
 @php
-    // Fondatrice : contenu non administrable pour l'instant (textes du wireframe à remplacer)
+    // Fondatrice : contenu non administrable pour l'instant
     $founder ??= [
-        'name' => 'Nom à renseigner',
-        'image' => null,
+        'name' => 'Julie Van Ossel',
+        'image' => asset('images/about/fondatrice.jpg'),
         'paragraphs' => [
-            'Présenter ici la personne à l’origine de Maison la recette : son parcours, son lien à la cuisine et l’envie qui a donné naissance au projet.',
-            'Ajouter une prise de parole personnelle sur sa façon de mener les rencontres et sur ce qu’elle souhaite transmettre.',
+            'Journaliste et entrepreneure sociale, j’ai travaillé pendant 15 ans en télévision et réalisé de nombreux reportages pour Arte, France TV, M6 ou Euronews, principalement sur des sujets liés à l’alimentation. Depuis 2023, je produis et anime le podcast La recette, qui part chaque mois à la rencontre d’artisan·es, chef·fes et producteur·trices qui façonnent l’alimentation de demain.',
+            'Productrice et formatrice, je réalise des podcasts autour de l’alimentation et de la gastronomie pour des organismes et des collectivités, et j’enseigne le podcast natif dans des écoles et universités.',
+            'Créatrice d’évènements culinaires écoresponsables, je conçois des expériences en partenariat avec des chef·fes, producteur·trices et artisan·es : ateliers de cuisine, food tours, immersions à la ferme.',
         ],
     ];
 @endphp

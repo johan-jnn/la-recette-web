@@ -1,6 +1,6 @@
 @props([
-    'title' => 'Se rencontrer autour de la cuisine',
-    'description' => 'Ateliers, rencontres et tables partagées : découvrez des moments à vivre pour goûter, apprendre et échanger.',
+    'title' => 'Des expériences inspirantes et apprenantes',
+    'description' => 'Ateliers, food tours et immersions co-construits avec des chef·fes, artisan·es et producteur·trices engagé·es, pour découvrir, cuisiner et apprendre ensemble.',
 ])
 
 {{-- En-tête de la page expériences : carte vert foncé et légumes décoratifs --}}

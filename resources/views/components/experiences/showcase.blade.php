@@ -20,7 +20,7 @@
 @endphp
 
 {{-- Bande pleine largeur d'une expérience : diaporama, titre, extrait, pagination et bouton de participation --}}
-<article {{ $attributes->merge(['class' => 'relative flex flex-col items-center gap-6']) }} x-data="{ slide: 0, total: {{ $images->count() }} }">
+<article data-reveal {{ $attributes->merge(['class' => 'relative flex flex-col items-center gap-6']) }} x-data="{ slide: 0, total: {{ $images->count() }} }">
     <div class="relative w-full overflow-hidden {{ $style['band'] }} md:h-[467px] flex flex-col {{ $style['imageFirst'] ? 'md:flex-row' : 'md:flex-row-reverse' }} md:items-center gap-10">
         <a href="{{ $detailUrl }}" class="relative block h-72 md:h-full w-full md:w-[47%] shrink-0 bg-placeholder" tabindex="-1" aria-hidden="true">
             @foreach ($images as $image)
@@ -59,6 +59,6 @@
     @endif
 
     <x-ui.button :url="$bookingUrl" :variant="$style['button']" :external="(bool) $experience->luma_event_id">
-        Participer à l’évènement
+        Réserver l’expérience
     </x-ui.button>
 </article>

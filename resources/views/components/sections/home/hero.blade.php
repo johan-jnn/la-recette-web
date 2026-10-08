@@ -1,7 +1,7 @@
 @props([
-    'eyebrow' => 'Podcast & expériences culinaires',
-    'title' => 'La cuisine se raconte. Et se partage.',
-    'description' => 'Des histoires de celles et ceux qui font la cuisine, et des expériences pour se rencontrer autour de la table.',
+    'eyebrow' => 'Podcast · Studio · Expériences',
+    'title' => 'Et si on changeait le monde en mangeant ?',
+    'description' => 'La recette part à la rencontre des artisan·es, chef·fes et producteur·trices qui façonnent l’alimentation de demain, pour décrypter les enjeux et les solutions de nos assiettes.',
     'image' => asset('images/home/hero.jpg'),
 ])
 
@@ -20,7 +20,7 @@
         <p class="text-lead max-w-[640px]">{{ $description }}</p>
 
         <div class="flex flex-wrap gap-4">
-            <x-ui.button url="#podcasts">Ecouter le podcast</x-ui.button>
+            <x-ui.button url="#podcasts">Écouter le podcast</x-ui.button>
             <x-ui.button :url="route('experiences.index')" variant="rose">Découvrir les expériences</x-ui.button>
         </div>
     </div>

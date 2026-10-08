@@ -11,7 +11,7 @@
 
 {{-- Bloc texte + visuel côte à côte (sections "Bienvenue", "Offres podcast"…) --}}
 <div {{ $attributes->merge(['class' => "relative grid grid-cols-1 {$columns} gap-8 items-start"]) }}>
-    <div class="flex flex-col gap-5 items-start {{ $tone === 'light' ? 'text-white' : 'text-forest' }} {{ $reverse ? 'md:order-2' : '' }}">
+    <div data-reveal class="flex flex-col gap-5 items-start {{ $tone === 'light' ? 'text-white' : 'text-forest' }} {{ $reverse ? 'md:order-2' : '' }}">
         @if ($eyebrow)
             <x-ui.eyebrow :tone="$tone">{{ $eyebrow }}</x-ui.eyebrow>
         @endif
@@ -27,5 +27,5 @@
         @endisset
     </div>
 
-    <x-ui.media :src="$image" :alt="$imageAlt ?: $title" radius="" class="w-full {{ $imageClass }}" />
+    <x-ui.media data-reveal :src="$image" :alt="$imageAlt ?: $title" radius="" class="w-full {{ $imageClass }}" />
 </div>

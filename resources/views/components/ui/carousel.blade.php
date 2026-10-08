@@ -3,6 +3,7 @@
     et pastilles de pagination. Chaque élément est enveloppé dans <x-ui.carousel-item>.
 --}}
 <div
+    data-reveal
     {{ $attributes->merge(['class' => 'flex flex-col gap-8']) }}
     x-data="{
         page: 0,
