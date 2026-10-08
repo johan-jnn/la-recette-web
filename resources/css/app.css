@@ -3,8 +3,9 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
-@source '../views/components/*.php';
-@source '../views/pages/*.php';
+@source '../views/components/**/*.blade.php';
+@source '../views/pages/*.blade.php';
+@source '../views/layouts/*.blade.php';
 
 @theme {
     --font-sans:

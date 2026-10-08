@@ -3,19 +3,10 @@
     'subtitle' => 'Une question, un devis ou une proposition ?',
 ])
 
-<section id="contact" class="w-full py-20 px-6 md:px-16 bg-[#F9F9FB] border-t border-[#E5E5E5]">
-    <div class="max-w-2xl mx-auto">
-        <div class="text-center mb-10">
-            <h2 class="text-3xl md:text-4xl font-semibold text-[#171717] tracking-tight mb-3">
-                {{ $title }}
-            </h2>
-            <p class="text-base text-[#626262]">
-                {{ $subtitle }}
-            </p>
-        </div>
+<x-layout.section id="contact" bg="muted" width="2xl" border>
+    <x-ui.section-heading :title="$title" :description="$subtitle" align="center" spacing="mb-10" />
 
-        <div class="p-8 md:p-10 rounded-3xl bg-white border border-[#E5E5E5] shadow-sm">
-            <x-forms.contact-form />
-        </div>
-    </div>
-</section>
+    <x-ui.panel padding="p-8 md:p-10">
+        <x-forms.contact-form />
+    </x-ui.panel>
+</x-layout.section>
