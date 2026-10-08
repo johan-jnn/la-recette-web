@@ -5,8 +5,6 @@ namespace App\Filament\Resources\Experiences\Schemas;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
-use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
@@ -59,15 +57,10 @@ class ExperienceForm
                             ->columnSpanFull(),
                     ]),
 
-                Group::make([
-                    Toggle::make('use_luma_event')
-                        ->label('Associer un event Luma ?')
-                        ->live(),
-                    TextInput::make('luma_event_id')->label('Identifiant Luma')
-                        ->columnSpanFull()
-                        ->required()
-                        ->hidden(fn(Get $get) => !$get('use_luma_event')),
-                ])->columnSpanFull(),
+                TextInput::make('luma_event_id')
+                    ->label('Associer un évenement Luma')
+                    ->hint("Placez ici l'identifiant Luma de l'évenement (si existant)")
+                    ->columnSpanFull()
             ]);
     }
 }

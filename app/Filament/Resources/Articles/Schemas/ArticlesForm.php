@@ -2,8 +2,6 @@
 
 namespace App\Filament\Resources\Articles\Schemas;
 
-use App\Models\Experience;
-use Filament\Actions\AttachAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;

@@ -9,7 +9,7 @@
 
 {{-- Carte épisode du catalogue (wireframe "Tous les épisodes") --}}
 <article {{ $attributes->merge(['class' => 'flex flex-col gap-[18px] text-forest']) }}>
-    <x-ui.media :src="$podcast->cover_url" :alt="$podcast->title" class="h-[220px] w-full" />
+    <x-ui.media :src="$podcast->cover_url" :alt="$podcast->title" class="aspect-square w-full" />
 
     <div class="flex items-center gap-3 text-sm leading-[1.55] text-muted">
         @if ($date)
