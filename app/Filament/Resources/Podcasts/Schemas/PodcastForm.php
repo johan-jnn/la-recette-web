@@ -85,7 +85,7 @@ class PodcastForm
         $episode = [
             'title' => $apiPodcast['title_original'],
             'description' => $description,
-            // 'cover_url' => $apiPodcast['image'],
+            'cover_url' => $apiPodcast['image'],
             'duration' => $apiPodcast['audio_length_sec'],
             'publish_date' => Carbon::createFromTimestampMs($apiPodcast['pub_date_ms']),
             'urls' => [
