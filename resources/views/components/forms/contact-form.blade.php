@@ -62,6 +62,7 @@
             name="phone"
             label="Numéro de téléphone"
             placeholder="xx xx xx xx xx"
+            required
         />
     </div>
 
