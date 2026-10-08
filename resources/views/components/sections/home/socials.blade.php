@@ -6,21 +6,26 @@
 ])
 
 @php
-    // Comptes sociaux non administrables pour l'instant
+    use App\Enums\Settings;
+    use App\Models\Setting;
+
+    // URLs administrables depuis Filament (Paramètres)
+    $urls = Setting::query()
+        ->whereIn('id', [Settings::INSTAGRAM_URL->value, Settings::LINKEDIN_URL->value])
+        ->pluck('value', 'id');
+
     $socials ??= [
         [
             'network' => 'Instagram',
             'description' => 'Les coulisses du podcast, les rencontres avec nos invité·es et les prochaines expériences.',
             'link_label' => 'Voir Instagram',
-            'url' => 'https://instagram.com',
-            'note' => 'Compte et lien à renseigner.',
+            'url' => $urls[Settings::INSTAGRAM_URL->value] ?? null,
         ],
         [
             'network' => 'LinkedIn',
             'description' => 'Les actualités du studio et les expériences pensées pour les entreprises : teambuildings, séminaires, afterworks.',
             'link_label' => 'Voir LinkedIn',
-            'url' => 'https://linkedin.com',
-            'note' => 'Page et lien à renseigner.',
+            'url' => $urls[Settings::LINKEDIN_URL->value] ?? null,
         ],
     ];
 @endphp
@@ -33,7 +38,7 @@
             <x-ui.text-card
                 :title="$social['network']"
                 :description="$social['description']"
-                :link="['label' => $social['link_label'], 'url' => $social['url'], 'external' => true]"
+                :link="filled($social['url']) ? ['label' => $social['link_label'], 'url' => $social['url'], 'external' => true] : null"
                 :note="$social['note'] ?? null"
             />
         @endforeach

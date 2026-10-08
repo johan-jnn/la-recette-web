@@ -15,6 +15,10 @@ Route::get('/podcast', function () {
     return view('pages.podcasts');
 })->name('podcasts.index');
 
+Route::get('/studio', function () {
+    return view('pages.studio');
+})->name('studio');
+
 Route::get('/blog', function () {
     return view('pages.article');
 })->name('articles.index');

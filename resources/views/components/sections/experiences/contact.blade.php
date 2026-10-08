@@ -1,6 +1,7 @@
 @props([
     'title' => 'Contactez-nous',
     'description' => 'Teambuilding, séminaire, afterwork ou déjeuner d’équipe ? Dans vos locaux, chez nos partenaires ou à la ferme, de 2 h à une journée complète : demandez votre devis sur mesure.',
+    'selectedType' => null, // App\Enums\ContactType pré-sélectionné
 ])
 
 {{-- Bloc contact vert clair avec formulaire compact et flèche décorative --}}
@@ -16,7 +17,7 @@
         </div>
 
         <div class="w-full rounded-card bg-forest p-6 md:p-[50px]">
-            <x-forms.contact-form theme="dark" />
+            <x-forms.contact-form theme="dark" :selected-type="$selectedType" />
         </div>
     </div>
 </section>

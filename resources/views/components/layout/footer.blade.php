@@ -3,16 +3,16 @@
     use App\Models\Setting;
     use Illuminate\Support\Facades\Route;
 
-    // Réseaux sociaux : pas encore en base, liens à renseigner
-    $socials = [
-        ['label' => 'Instagram', 'url' => 'https://instagram.com', 'external' => true],
-        ['label' => 'LinkedIn', 'url' => 'https://linkedin.com', 'external' => true],
-    ];
+    // URLs administrables depuis Filament (Paramètres) ; un lien sans URL n'est pas affiché
+    $urls = Setting::query()
+        ->whereIn('id', [Settings::INSTAGRAM_URL->value, Settings::LINKEDIN_URL->value, Settings::TRUST_PILOT_URL->value])
+        ->pluck('value', 'id');
 
-    // URL Trustpilot administrable depuis Filament (Paramètres)
-    if ($trustPilotUrl = Setting::find(Settings::TRUST_PILOT_URL->value)?->value) {
-        $socials[] = ['label' => 'Trustpilot', 'url' => $trustPilotUrl, 'external' => true];
-    }
+    $socials = collect([
+        ['label' => 'Instagram', 'url' => $urls[Settings::INSTAGRAM_URL->value] ?? null, 'external' => true],
+        ['label' => 'LinkedIn', 'url' => $urls[Settings::LINKEDIN_URL->value] ?? null, 'external' => true],
+        ['label' => 'Trustpilot', 'url' => $urls[Settings::TRUST_PILOT_URL->value] ?? null, 'external' => true],
+    ])->filter(fn ($link) => filled($link['url']))->values()->all();
 
     $footerNavs = [
         'Explorer' => [

@@ -16,7 +16,7 @@
 
         <x-slot:actions>
             <x-ui.button :url="route('podcasts.index')" variant="white">Écouter le podcast</x-ui.button>
-            <x-ui.button :url="route('contact.index')" variant="sun-light">Découvrir nos offres podcast</x-ui.button>
+            <x-ui.button :url="route('studio')" variant="sun-light">Découvrir nos offres podcast</x-ui.button>
         </x-slot:actions>
     </x-ui.media-text>
 </x-layout.section>
