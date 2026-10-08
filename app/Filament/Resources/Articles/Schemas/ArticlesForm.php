@@ -9,7 +9,9 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Str;
 
 class ArticlesForm
 {
@@ -26,6 +28,7 @@ class ArticlesForm
                     ->imageEditor()
                     ->automaticallyCropImagesToAspectRatio()
                     ->moveFiles()
+                    ->getUploadedFileNameForStorageUsing(fn(Get $get) => Str::slug($get('title')))
                     ->disk('public')
                     ->visibility('public')
                     ->directory('articles/thumbnails')

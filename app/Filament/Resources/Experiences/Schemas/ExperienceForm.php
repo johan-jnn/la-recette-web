@@ -10,6 +10,7 @@ use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Str;
 
 class ExperienceForm
 {
@@ -25,6 +26,7 @@ class ExperienceForm
                     ->optimize()
                     ->imageEditor()
                     ->automaticallyCropImagesToAspectRatio()
+                    ->getUploadedFileNameForStorageUsing(fn(Get $get) => Str::slug($get('title')))
                     ->moveFiles()
                     ->disk('public')
                     ->visibility('public')
