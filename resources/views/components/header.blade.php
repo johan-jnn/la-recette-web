@@ -8,16 +8,15 @@
 @php
     if ($nav === null) {
         $nav = [
-            'Podcast' => '#podcasts',
-            'Studio' => '#studio',
+            'Podcast' => route('articles.index'),
             'Expériences' => route('experiences.index'),
-            'Découvrez la Maison' => route('about'),
+            'À propos' => route('about'),
         ];
     }
 
     if ($cta === null) {
         $cta = [
-            'Nous contacter' => '#contact',
+            'Nous contacter' => route('contact.index'),
         ];
     }
 @endphp

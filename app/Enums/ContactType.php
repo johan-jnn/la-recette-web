@@ -16,8 +16,8 @@ enum ContactType: string implements HasLabel
         return match ($this) {
             ContactType::QUESTION => 'Question',
             ContactType::DEVIS => 'Devis',
-            ContactType::RESERVATION => 'Reservation',
-            ContactType::AUTRE => 'Other',
+            ContactType::RESERVATION => 'Réservation',
+            ContactType::AUTRE => 'Autre',
 
             default => $this->name
         };
