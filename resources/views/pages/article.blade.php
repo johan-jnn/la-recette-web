@@ -23,7 +23,7 @@
             ],
             (object)[
                 'id' => 2,
-                'title' => 'L'art de la fermentation artisanale',
+                'title' => 'L\'art de la fermentation artisanale',
                 'description' => 'Comprendre les mystères et bienfaits des levains, kéfirs et saveurs fermentées oubliées de nos grands-mères.',
                 'cover_url' => 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800&auto=format&fit=crop',
                 'publish_date' => '2025-04-05',
@@ -32,7 +32,7 @@
             (object)[
                 'id' => 3,
                 'title' => 'Rencontre autour du feu et des braises',
-                'description' => 'Techniques ancestrales de cuisson et retour à l'essentiel racontés par nos chefs invités et feu-maîtres.',
+                'description' => 'Techniques ancestrales de cuisson et retour à l\'essentiel racontés par nos chefs invités et feu-maîtres.',
                 'cover_url' => 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop',
                 'publish_date' => '2025-05-18',
                 'duration' => null,
@@ -47,7 +47,7 @@
             ],
             (object)[
                 'id' => 5,
-                'title' => 'De la graine à l'assiette étoilée',
+                'title' => 'De la graine à l\'assiette étoilée',
                 'description' => 'Dialogue inspirant entre maraîchers bio et chefs engagés pour la biodiversité et les circuits courts.',
                 'cover_url' => 'https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=800&auto=format&fit=crop',
                 'publish_date' => '2025-08-14',
