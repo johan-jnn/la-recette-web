@@ -1,18 +1,50 @@
 @extends('layouts.page')
 
 @section('title', 'Maison La Recette — Contact')
-@section('description', 'Contactez-nous pour toute question, devis entreprise ou information sur nos ateliers et podcasts.')
+@section('description', 'Une question, une idée de rencontre ou une envie de collaboration ? Écrivez à Maison la recette.')
+
+@php
+    // FAQ spécifique à la page contact (non administrable pour l'instant)
+    $faqItems = [
+        [
+            'question' => 'Comment envoyer une demande générale ?',
+            'answer' => 'Utilisez le formulaire ci-dessus pour nous transmettre votre prénom, nom, adresse e-mail et le détail de votre demande.',
+        ],
+        [
+            'question' => 'Comment écouter les épisodes du podcast ?',
+            'answer' => 'Tous les épisodes sont disponibles sur la page Podcast et sur vos plateformes d’écoute habituelles.',
+        ],
+        [
+            'question' => 'Quel est le processus pour un projet d’entreprise ?',
+            'answer' => 'Choisissez « Devis » comme objet de votre demande et décrivez votre équipe et vos envies : nous revenons vers vous pour construire le moment ensemble.',
+        ],
+        [
+            'question' => 'Où trouver les prochaines expériences ?',
+            'answer' => 'Les expériences à venir sont présentées sur la page Expériences, avec leurs modalités de réservation.',
+        ],
+    ];
+@endphp
 
 @push('main')
     <x-ui.page-hero
-        eyebrow="Nous contacter"
-        title="Parlons de votre projet"
-        description="Une question sur un atelier, une privatisation ou un épisode ? Écrivez-nous et nous vous répondrons rapidement."
+        :breadcrumb="[['label' => 'Contact']]"
+        title="Faisons connaissance"
+        description="Une question, une idée de rencontre ou une envie de collaboration ? Écrivez à Maison la recette."
     />
 
-    {{-- ?experience={id} pré-sélectionne l'expérience depuis sa fiche --}}
-    <x-sections.contact.form :selected-experiences="array_filter([request()->query('experience')])" />
+    {{-- ?experience={id} et ?type={ContactType} pré-remplissent le formulaire --}}
+    <x-sections.contact.form
+        :selected-experiences="array_filter([request()->query('experience')])"
+        :selected-type="request()->query('type')"
+    />
 
-    <x-sections.home.faq />
-    <x-sections.home.socials />
+    <x-sections.home.socials description="" align="left" />
+
+    <x-sections.home.faq
+        :items="$faqItems"
+        title="FAQ"
+        subtitle=""
+        description="Quelques réponses utiles avant d’envoyer votre message."
+        bg="white"
+    />
 @endpush

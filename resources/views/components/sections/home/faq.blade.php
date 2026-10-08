@@ -3,6 +3,7 @@
     'title' => 'FAQ · Réservation & participation',
     'subtitle' => 'Avant de réserver',
     'description' => 'Retrouvez ici les informations utiles pour préparer votre participation.',
+    'bg' => 'cream',
 ])
 
 @php
@@ -27,7 +28,7 @@
     ];
 @endphp
 
-<x-layout.section id="faq">
+<x-layout.section id="faq" :bg="$bg">
     <div class="flex flex-col gap-8 text-forest">
         <h2 class="text-title font-bold">{{ $title }}</h2>
 

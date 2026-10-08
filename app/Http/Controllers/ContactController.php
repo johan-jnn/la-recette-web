@@ -24,6 +24,7 @@ class ContactController extends Controller
             }
         });
 
-        return back()->with('success', 'Merci, votre message a bien été envoyé. Nous vous répondrons rapidement.');
+        // Ancre #contact : les formulaires de contact sont placés dans une section portant cet id
+        return back()->withFragment('contact')->with('success', 'Merci, votre message a bien été envoyé. Nous vous répondrons rapidement.');
     }
 }

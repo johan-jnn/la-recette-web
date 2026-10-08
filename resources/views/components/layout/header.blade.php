@@ -9,7 +9,7 @@
 
     // "pattern" sert à détecter la page active ; les pages pas encore créées pointent vers "#"
     $nav ??= [
-        ['label' => 'Podcast', 'url' => route('articles.index') . '#episodes', 'pattern' => null],
+        ['label' => 'Podcast', 'url' => route('podcasts.index'), 'pattern' => 'podcasts.*'],
         ['label' => 'Studio', 'url' => Route::has('studio') ? route('studio') : '#', 'pattern' => 'studio'],
         ['label' => 'Expériences', 'url' => route('experiences.index'), 'pattern' => 'experiences.*'],
         ['label' => 'Découvrez la Maison', 'url' => route('about'), 'pattern' => 'about'],

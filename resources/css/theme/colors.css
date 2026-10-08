@@ -14,6 +14,8 @@
     --color-ink: #171717;     /* Texte des champs et de la FAQ */
     --color-muted: #626262;   /* Textes secondaires */
     --color-line: #c8c8c8;    /* Bordures et séparateurs */
+    --color-line-soft: #d6d6d6; /* Bordures des champs sur fond sombre */
+    --color-subtle: #808080;  /* Textes indicatifs (placeholders) */
     --color-placeholder: #d9d9d9; /* Fond des emplacements d'image */
 
     /* Partenaires */

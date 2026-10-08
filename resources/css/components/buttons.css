@@ -26,6 +26,14 @@
     @apply bg-sun text-cream hover:bg-sun/85;
 }
 
+@utility btn-forest-sun {
+    @apply bg-forest text-sun hover:bg-forest/85;
+}
+
+@utility btn-cream {
+    @apply border-line bg-cream text-forest hover:bg-white;
+}
+
 @utility btn-white {
     @apply bg-white text-forest hover:bg-cream;
 }

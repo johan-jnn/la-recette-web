@@ -1,15 +1,12 @@
 @extends('layouts.page')
 
-@section('title', 'Maison La Recette — Toutes les expériences')
-@section('description', 'Réservez des ateliers pratiques, dégustations sensorielles et tables partagées.')
+@section('title', 'Maison La Recette — Expériences')
+@section('description', 'Ateliers, rencontres et tables partagées : découvrez des moments à vivre pour goûter, apprendre et échanger.')
 
 @push('main')
-    <x-ui.page-hero
-        eyebrow="Nos Formats"
-        title="Toutes les expériences"
-        description="Participez à des moments conviviaux pensés pour goûter, apprendre et échanger autour du goût."
-    />
-
-    <x-sections.experiences.list />
+    <x-sections.experiences.intro />
+    <x-sections.experiences.showcase />
+    <x-sections.experiences.contact />
     <x-sections.home.faq />
+    <x-sections.home.cta />
 @endpush

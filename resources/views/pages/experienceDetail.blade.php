@@ -9,9 +9,8 @@
 
 @push('main')
     <x-ui.page-hero
+        :breadcrumb="[['label' => 'Expériences', 'url' => route('experiences.index')], ['label' => $experience->title]]"
         :title="$experience->title"
-        align="left"
-        :back="['label' => 'Retour à toutes les expériences', 'url' => route('experiences.index')]"
     />
 
     <x-sections.experiences.detail :experience="$experience" />

@@ -13,8 +13,8 @@
     </x-slot:decor>
 
     <x-ui.section-heading title="Les derniers podcasts">
-        <x-ui.button :url="route('articles.index') . '#episodes'" variant="outline">Trouver mon épisode</x-ui.button>
-        <x-ui.button :url="route('articles.index')" variant="rose">Les playlists</x-ui.button>
+        <x-ui.button :url="route('podcasts.index')" variant="outline">Trouver mon épisode</x-ui.button>
+        <x-ui.button :url="route('podcasts.index') . '#episodes'" variant="rose">Les playlists</x-ui.button>
     </x-ui.section-heading>
 
     @if ($podcasts->isEmpty())

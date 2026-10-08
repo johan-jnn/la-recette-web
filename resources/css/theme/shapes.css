@@ -2,6 +2,7 @@
 @theme {
     --radius-image: 10px;   /* Visuels d'expérience / présentation */
     --radius-field: 12px;   /* Champs, items de FAQ */
+    --radius-input: 8px;    /* Champs des formulaires sur fond sombre */
     --radius-card: 20px;    /* Cartes, bandeaux */
     --radius-pill: 30px;    /* Boutons */
 

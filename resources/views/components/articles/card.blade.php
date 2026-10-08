@@ -6,7 +6,7 @@
     // Pas encore de page article : repli sur la liste tant que "articles.show" n'existe pas
     $url = \Illuminate\Support\Facades\Route::has('articles.show')
         ? route('articles.show', $article)
-        : route('articles.index') . '#articles';
+        : route('articles.index');
 
     // Sur-titre : expérience associée et/ou date de publication
     $meta = collect([$article->experience?->title, $article->created_at?->translatedFormat('d F Y')])->filter()->join(' · ');

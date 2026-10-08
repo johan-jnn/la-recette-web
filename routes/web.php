@@ -11,8 +11,11 @@ Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
 
-// Podcasts & Articles — même page listing (slug "podcast" pour l'URL propre)
 Route::get('/podcast', function () {
+    return view('pages.podcasts');
+})->name('podcasts.index');
+
+Route::get('/blog', function () {
     return view('pages.article');
 })->name('articles.index');
 

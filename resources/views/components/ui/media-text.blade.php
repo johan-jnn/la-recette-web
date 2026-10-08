@@ -6,10 +6,11 @@
     'tone' => 'forest', // forest, light
     'reverse' => false,
     'imageClass' => 'h-[340px] rounded-image',
+    'columns' => 'md:grid-cols-2',
 ])
 
 {{-- Bloc texte + visuel côte à côte (sections "Bienvenue", "Offres podcast"…) --}}
-<div {{ $attributes->merge(['class' => 'relative grid grid-cols-1 md:grid-cols-2 gap-8 items-start']) }}>
+<div {{ $attributes->merge(['class' => "relative grid grid-cols-1 {$columns} gap-8 items-start"]) }}>
     <div class="flex flex-col gap-5 items-start {{ $tone === 'light' ? 'text-white' : 'text-forest' }} {{ $reverse ? 'md:order-2' : '' }}">
         @if ($eyebrow)
             <x-ui.eyebrow :tone="$tone">{{ $eyebrow }}</x-ui.eyebrow>

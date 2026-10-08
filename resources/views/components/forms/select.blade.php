@@ -6,13 +6,17 @@
     'placeholder' => 'Sélectionner une option',
     'required' => false,
     'disabled' => false,
+    'tone' => 'light', // light, dark (sur fond vert foncé)
 ])
 
 @php
     // Liste ordonnée de paires (un objet JS réordonnerait les clés numériques)
     $optionList = collect($options)->map(fn ($optLabel, $val) => ['value' => (string) $val, 'label' => $optLabel])->values();
     $currentValue = (string) old($name, $selected);
-    $triggerState = $errors->has($name) ? 'border-red-500 ring-2 ring-red-500/20' : 'border-line hover:border-forest';
+    $triggerState = $errors->has($name) ? 'border-red-500 ring-2 ring-red-500/20' : ($tone === 'dark' ? 'border-line-soft' : 'border-line hover:border-forest');
+    $triggerBase = $tone === 'dark'
+        ? 'min-h-12 rounded-input bg-cream px-3 py-3.5 text-sm'
+        : 'rounded-field bg-white px-4 py-3 text-sm';
 @endphp
 
 <x-forms.field
@@ -20,6 +24,7 @@
     :label="$label"
     :for="$name . '_trigger'"
     :required="$required"
+    :tone="$tone"
     class="relative"
     x-data="{
         open: false,
@@ -45,7 +50,7 @@
         @click="open = !open"
         :aria-expanded="open"
         @disabled($disabled)
-        class="w-full px-4 py-3 rounded-field bg-white border text-sm text-left flex justify-between items-center transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage {{ $triggerState }}"
+        class="w-full {{ $triggerBase }} border text-left flex justify-between items-center transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage {{ $triggerState }}"
     >
         <span x-text="displayLabel" :class="value ? 'text-ink font-medium' : 'text-muted'" class="truncate"></span>
         <x-ui.icon name="chevron-down" class="text-muted transition-transform duration-200 shrink-0 ml-2" x-bind:class="open ? 'rotate-180 text-forest' : ''" />

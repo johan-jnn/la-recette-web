@@ -22,7 +22,7 @@
 @endphp
 
 {{-- Section pleine largeur (fond) + conteneur centré. Slot "decor" : éléments décoratifs absolus. --}}
-<section {{ $attributes->merge(['class' => "relative w-full overflow-hidden px-6 md:px-20 {$padding} {$bgClasses}"]) }}>
+<section {{ $attributes->merge(['class' => "relative w-full px-6 md:px-20 {$padding} {$bgClasses}"]) }}>
     {{ $decor ?? '' }}
 
     <div class="relative {{ $widthClasses }} mx-auto">

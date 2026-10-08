@@ -16,7 +16,7 @@
 
     $footerNavs = [
         'Explorer' => [
-            ['label' => 'Podcast', 'url' => route('articles.index')],
+            ['label' => 'Podcast', 'url' => route('podcasts.index')],
             ['label' => 'Expériences', 'url' => route('experiences.index')],
             ['label' => 'Entreprises', 'url' => Route::has('companies') ? route('companies') : route('contact.index')],
             ['label' => 'À propos', 'url' => route('about')],

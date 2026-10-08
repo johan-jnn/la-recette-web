@@ -5,6 +5,7 @@
     'selected' => [],
     'placeholder' => 'Sélectionner une ou plusieurs options',
     'disabled' => false,
+    'tone' => 'light', // light, dark (sur fond vert foncé)
 ])
 
 @php
@@ -13,12 +14,14 @@
     // "experience_ids[]" -> clé "experience_ids" pour old() et les erreurs
     $key = str_replace('[]', '', $name);
     $selectedValues = array_map('strval', array_values((array) old($key, $selected ?? [])));
-    $triggerState = $errors->has($key) || $errors->has("{$key}.*") ? 'border-red-500 ring-2 ring-red-500/20' : 'border-line hover:border-forest';
+    $triggerState = $errors->has($key) || $errors->has("{$key}.*") ? 'border-red-500 ring-2 ring-red-500/20' : ($tone === 'dark' ? 'border-line-soft' : 'border-line hover:border-forest');
+    $triggerBase = $tone === 'dark' ? 'min-h-12 rounded-input bg-cream' : 'min-h-[46px] rounded-field bg-white';
 @endphp
 
 <x-forms.field
     :name="$key"
     :label="$label"
+    :tone="$tone"
     class="relative"
     x-data="{
         open: false,
@@ -51,7 +54,7 @@
         @click="open = !open"
         @keydown.enter.prevent="open = !open"
         :aria-expanded="open"
-        class="w-full min-h-[46px] px-3 py-2 rounded-field bg-white border text-sm flex flex-wrap gap-1.5 items-center justify-between cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-sage/30 {{ $triggerState }}"
+        class="w-full {{ $triggerBase }} px-3 py-2 border text-sm flex flex-wrap gap-1.5 items-center justify-between cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-sage/30 {{ $triggerState }}"
     >
         <div class="flex flex-wrap gap-1.5 items-center flex-1">
             <span x-show="selected.length === 0" class="text-muted text-sm px-1" x-text="placeholder"></span>

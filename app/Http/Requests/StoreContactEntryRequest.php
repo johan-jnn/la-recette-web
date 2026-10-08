@@ -54,6 +54,14 @@ class StoreContactEntryRequest extends FormRequest
     }
 
     /**
+     * En cas d'erreur, revient sur la section du formulaire (#contact) pour afficher les messages.
+     */
+    protected function getRedirectUrl(): string
+    {
+        return strtok(parent::getRedirectUrl(), '#').'#contact';
+    }
+
+    /**
      * @return array<string, string>
      */
     public function messages(): array

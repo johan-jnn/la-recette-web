@@ -13,7 +13,7 @@
         <x-ui.wave variant="white" class="bottom-0 z-10" />
     </x-slot:decor>
 
-    <x-ui.media-text :image="$image" image-alt="Rencontre autour de la cuisine" :title="$title" class="md:grid-cols-[602px_1fr]">
+    <x-ui.media-text :image="$image" image-alt="Rencontre autour de la cuisine" :title="$title" columns="md:grid-cols-[602px_1fr]">
         @foreach ($paragraphs as $paragraph)
             <p>{{ $paragraph }}</p>
         @endforeach

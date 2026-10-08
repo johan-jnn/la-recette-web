@@ -9,6 +9,7 @@
 /* Styles de base et composants */
 @import "./base.css";
 @import "./components/buttons.css";
+@import "./components/forms.css";
 @import "./components/utilities.css";
 
 /* Fichiers analysés par Tailwind pour générer les classes */

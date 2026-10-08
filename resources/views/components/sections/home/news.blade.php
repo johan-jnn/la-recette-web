@@ -9,7 +9,7 @@
 
 <x-layout.section id="actualites">
     <x-ui.section-heading title="Suivez nos actualités">
-        <x-ui.button :url="route('articles.index') . '#articles'" variant="outline">Toutes les actualités</x-ui.button>
+        <x-ui.button :url="route('articles.index')" variant="outline">Toutes les actualités</x-ui.button>
     </x-ui.section-heading>
 
     <x-articles.grid :articles="$articles" />

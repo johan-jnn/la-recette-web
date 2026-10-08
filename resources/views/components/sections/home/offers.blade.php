@@ -15,7 +15,7 @@
         <p>{{ $description }}</p>
 
         <x-slot:actions>
-            <x-ui.button :url="route('articles.index') . '#episodes'" variant="white">Trouver mon épisode</x-ui.button>
+            <x-ui.button :url="route('podcasts.index')" variant="white">Trouver mon épisode</x-ui.button>
             <x-ui.button :url="route('contact.index')" variant="sun-light">Découvrir nos offres podcast</x-ui.button>
         </x-slot:actions>
     </x-ui.media-text>

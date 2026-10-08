@@ -30,7 +30,7 @@ class ContactFormTest extends TestCase
     {
         $response = $this->from(route('contact.index'))->post(route('contact.store'), $this->validPayload());
 
-        $response->assertRedirect(route('contact.index'));
+        $response->assertRedirect(route('contact.index').'#contact');
         $response->assertSessionHas('success');
         $response->assertSessionHasNoErrors();
 
@@ -39,6 +39,29 @@ class ContactFormTest extends TestCase
             'type' => ContactType::DEVIS->value,
             'company_name' => 'Maison Dupont',
         ]);
+    }
+
+    public function test_only_the_success_message_is_displayed_after_submission(): void
+    {
+        foreach (['contact.index', 'experiences.index'] as $page) {
+            $this->withSession(['success' => 'Merci, votre message a bien été envoyé.'])
+                ->get(route($page))
+                ->assertOk()
+                ->assertSee('Merci, votre message a bien été envoyé.')
+                ->assertDontSee('name="first_name"', false)
+                ->assertDontSee('Envoyer mon message');
+        }
+    }
+
+    public function test_the_dark_theme_displays_every_field(): void
+    {
+        Experience::create(['title' => 'Atelier', 'presentation' => '<p>Présentation</p>']);
+
+        $response = $this->get(route('experiences.index'))->assertOk();
+
+        foreach (['first_name', 'last_name', 'email', 'phone', 'type', 'company_name', 'experience_ids[]', 'object', 'message'] as $field) {
+            $response->assertSee($field, false);
+        }
     }
 
     public function test_it_attaches_selected_experiences(): void
@@ -66,14 +89,14 @@ class ContactFormTest extends TestCase
 
     public function test_it_validates_the_payload(): void
     {
-        $this->post(route('contact.store'), [
+        $this->from(route('experiences.index'))->post(route('contact.store'), [
             'email' => 'pas-un-email',
             'phone' => 'abc',
             'type' => 'inconnu',
             'experience_ids' => [999],
         ])->assertSessionHasErrors([
             'last_name', 'first_name', 'email', 'phone', 'type', 'object', 'message', 'experience_ids.0',
-        ]);
+        ])->assertRedirect(route('experiences.index').'#contact');
 
         $this->assertDatabaseCount('contact_entries', 0);
     }

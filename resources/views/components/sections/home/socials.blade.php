@@ -1,5 +1,8 @@
 @props([
     'socials' => null,
+    'title' => 'Retrouvons-nous aussi ici',
+    'description' => 'Suivez nos actualités et rejoignez la communauté.',
+    'align' => 'center',
 ])
 
 @php
@@ -23,11 +26,7 @@
 @endphp
 
 <x-layout.section>
-    <x-ui.section-heading
-        title="Retrouvons-nous aussi ici"
-        description="Suivez nos actualités et rejoignez la communauté."
-        align="center"
-    />
+    <x-ui.section-heading :title="$title" :description="$description" :align="$align" />
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         @foreach ($socials as $social)
