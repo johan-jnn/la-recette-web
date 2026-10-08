@@ -3,24 +3,24 @@
 ])
 
 @php
+    use App\Enums\Platform;
+
     // Liens vers la chaîne du podcast : pas encore administrables, à renseigner
     $platforms ??= [
-        ['platform' => \App\Enums\Platform::SPOTIFY, 'url' => 'https://spotify.com'],
-        ['platform' => \App\Enums\Platform::DEEZER, 'url' => 'https://deezer.com'],
-        ['platform' => \App\Enums\Platform::APPLE_MUSIC, 'url' => 'https://podcasts.apple.com'],
+        ['platform' => Platform::SPOTIFY, 'label' => 'Spotify', 'url' => 'https://spotify.com', 'arrow' => true],
+        ['platform' => Platform::APPLE_MUSIC, 'label' => 'Apple Podcasts', 'url' => 'https://podcasts.apple.com', 'arrow' => true],
+        ['platform' => Platform::DEEZER, 'label' => 'Deezer', 'url' => 'https://deezer.com'],
     ];
 @endphp
 
-<div {{ $attributes->merge(['class' => 'flex flex-wrap items-center justify-center gap-3']) }}>
+{{-- Boutons blancs des plateformes d'écoute --}}
+<div {{ $attributes->merge(['class' => 'flex flex-wrap items-center gap-4']) }}>
     @foreach ($platforms as $item)
-        <a
-            href="{{ $item['url'] }}"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-medium transition-all"
-        >
-            <x-podcasts.platform-icon :platform="$item['platform']" />
-            {{ $item['platform']->getLabel() }}
-        </a>
+        <x-ui.button :url="$item['url']" variant="white" external>
+            {{ $item['label'] ?? $item['platform']->getLabel() }}
+            @if (!empty($item['arrow']))
+                <x-ui.icon name="arrow-up-right" size="w-3 h-3" />
+            @endif
+        </x-ui.button>
     @endforeach
 </div>

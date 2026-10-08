@@ -8,7 +8,7 @@
     x-transition:leave-start="opacity-100 translate-y-0"
     x-transition:leave-end="opacity-0 translate-y-1"
     style="display: none;"
-    {{ $attributes->merge(['class' => 'absolute left-0 top-full mt-1.5 w-full bg-white rounded-xl border border-[#E5E5E5] shadow-lg z-30 max-h-60 overflow-y-auto py-1']) }}
+    {{ $attributes->merge(['class' => 'absolute left-0 top-full mt-1.5 w-full bg-white rounded-field border border-line shadow-lg z-30 max-h-60 overflow-y-auto py-1']) }}
 >
     {{ $slot }}
 </div>

@@ -3,29 +3,26 @@
     'title',
     'description' => null,
     'align' => 'left', // left, center
-    'spacing' => 'mb-12',
+    'tone' => 'forest', // forest, light
+    'spacing' => 'mb-8',
 ])
 
-{{-- En-tête de section : sur-titre, titre, description et actions optionnelles (slot) --}}
-<div {{ $attributes->merge(['class' => "{$spacing} flex flex-col gap-4 " . ($align === 'center' ? 'items-center text-center' : 'md:flex-row md:justify-between md:items-end')]) }}>
-    <div>
+{{-- En-tête de section : sur-titre, titre, description et actions (slot) alignées à droite --}}
+<div {{ $attributes->merge(['class' => "{$spacing} flex flex-col gap-4 " . ($align === 'center' ? 'items-center text-center' : 'md:flex-row md:items-center md:justify-between')]) }}>
+    <div class="flex flex-col gap-5 {{ $tone === 'light' ? 'text-white' : 'text-forest' }}">
         @if ($eyebrow)
-            <x-ui.eyebrow>{{ $eyebrow }}</x-ui.eyebrow>
+            <x-ui.eyebrow :tone="$tone">{{ $eyebrow }}</x-ui.eyebrow>
         @endif
 
-        <h2 class="text-3xl md:text-4xl font-semibold text-[#171717] tracking-tight">
-            {{ $title }}
-        </h2>
+        <h2 class="text-title font-bold">{{ $title }}</h2>
 
         @if ($description)
-            <p class="text-base text-[#626262] mt-3 {{ $align === 'center' ? 'max-w-2xl mx-auto' : '' }}">
-                {{ $description }}
-            </p>
+            <p class="text-body-lg {{ $align === 'center' ? 'max-w-2xl' : '' }}">{{ $description }}</p>
         @endif
     </div>
 
     @if ($slot->isNotEmpty())
-        <div class="flex items-center gap-3 shrink-0">
+        <div class="flex flex-wrap items-center gap-5 shrink-0">
             {{ $slot }}
         </div>
     @endif

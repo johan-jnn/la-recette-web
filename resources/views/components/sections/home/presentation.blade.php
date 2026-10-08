@@ -1,23 +1,25 @@
 @props([
-    'title' => 'Un écosystème culinaire engagé',
-    'eyebrow' => 'La Maison La Recette',
-    'image' => 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=1000&auto=format&fit=crop',
+    'title' => 'Bienvenue dans Maison la recette',
+    'image' => asset('images/home/bienvenue.jpg'),
     'paragraphs' => [
-        'Maison La Recette rassemble passionnés, artisans et créateurs autour d’une même table pour raconter et savourer l’essence de la gastronomie contemporaine.',
-        'À travers notre studio de production, nos séries de podcasts intimistes et des formats d’événements sur-mesure, nous créons des passerelles vivantes entre le champ, le fourneau et la dégustation.',
+        'Écouter un parcours, découvrir un savoir-faire, cuisiner ensemble : la recette commence par une rencontre.',
+        'Maison la recette relie des récits culinaires à des moments vécus, pour les curieux comme pour les équipes.',
     ],
 ])
 
-<x-layout.section width="5xl" border>
-    <x-ui.media-text :image="$image" image-alt="Atelier culinaire Maison La Recette" :eyebrow="$eyebrow" :title="$title">
+<x-layout.section>
+    <x-slot:decor>
+        <x-ui.decor name="citrus" width="474" height="447" class="left-3/4 top-1/2 w-[474px] h-[447px] hidden md:block" />
+        <x-ui.wave variant="white" class="bottom-0 z-10" />
+    </x-slot:decor>
+
+    <x-ui.media-text :image="$image" image-alt="Rencontre autour de la cuisine" :title="$title" class="md:grid-cols-[602px_1fr]">
         @foreach ($paragraphs as $paragraph)
             <p>{{ $paragraph }}</p>
         @endforeach
 
         <x-slot:actions>
-            <x-ui.button :url="route('about')" variant="primary">
-                Découvrir notre histoire ↗
-            </x-ui.button>
+            <x-ui.button :url="route('about')">Notre histoire</x-ui.button>
         </x-slot:actions>
     </x-ui.media-text>
 </x-layout.section>

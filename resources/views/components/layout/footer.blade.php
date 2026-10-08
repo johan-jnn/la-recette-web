@@ -1,53 +1,48 @@
 @php
+    use App\Enums\Settings;
+    use App\Models\Setting;
+    use Illuminate\Support\Facades\Route;
+
     // Réseaux sociaux : pas encore en base, liens à renseigner
     $socials = [
-        ['label' => 'Instagram', 'icon' => 'instagram', 'url' => 'https://instagram.com'],
-        ['label' => 'LinkedIn', 'icon' => 'linkedin', 'url' => 'https://linkedin.com'],
-    ];
-
-    $legalLinks = [
-        ['label' => 'Mentions légales', 'url' => '#'],
-        ['label' => 'Politique de confidentialité', 'url' => '#'],
-        ['label' => 'Gestion des cookies', 'url' => '#'],
+        ['label' => 'Instagram', 'url' => 'https://instagram.com', 'external' => true],
+        ['label' => 'LinkedIn', 'url' => 'https://linkedin.com', 'external' => true],
     ];
 
     // URL Trustpilot administrable depuis Filament (Paramètres)
-    $trustPilotUrl = \App\Models\Setting::find(\App\Enums\Settings::TRUST_PILOT_URL->value)?->value;
-
-    $followLinks = collect($socials)
-        ->map(fn ($social) => ['label' => $social['label'] . ' ↗', 'url' => $social['url'], 'external' => true])
-        ->when($trustPilotUrl, fn ($links) => $links->push(['label' => 'Avis Trustpilot ↗', 'url' => $trustPilotUrl, 'external' => true]))
-        ->all();
+    if ($trustPilotUrl = Setting::find(Settings::TRUST_PILOT_URL->value)?->value) {
+        $socials[] = ['label' => 'Trustpilot', 'url' => $trustPilotUrl, 'external' => true];
+    }
 
     $footerNavs = [
         'Explorer' => [
-            ['label' => 'Podcast & Articles', 'url' => route('articles.index')],
+            ['label' => 'Podcast', 'url' => route('articles.index')],
             ['label' => 'Expériences', 'url' => route('experiences.index')],
+            ['label' => 'Entreprises', 'url' => Route::has('companies') ? route('companies') : route('contact.index')],
             ['label' => 'À propos', 'url' => route('about')],
             ['label' => 'Contact', 'url' => route('contact.index')],
         ],
-        'Nous suivre' => $followLinks,
-        'Informations' => $legalLinks,
+        'Nous suivre' => $socials,
+        'Informations' => [
+            ['label' => 'Mentions légales', 'url' => '#'],
+            ['label' => 'Politique de confidentialité', 'url' => '#'],
+            ['label' => 'Gestion des cookies', 'url' => '#'],
+        ],
     ];
 @endphp
 
-<footer class="bg-[#111111] text-white px-6 md:px-16 pt-16 pb-8">
-    <div class="max-w-6xl mx-auto">
-        <div class="border-t border-white/10 mb-14"></div>
+<footer class="relative overflow-hidden bg-forest text-white px-6 md:px-20 py-14">
+    <x-ui.decor name="footer-shape" width="558" height="501" class="right-[-5.9%] bottom-[-17%] w-[558px] h-[501px] hidden md:block" />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-14">
-            {{-- Branding --}}
-            <div>
-                <x-layout.logo class="text-xl text-white mb-4" />
-                <p class="text-sm text-white/50 leading-relaxed max-w-xs">
-                    Des histoires à écouter.<br>Des moments à partager.
-                </p>
+    <div class="relative max-w-page mx-auto flex flex-col gap-10">
+        <x-layout.newsletter />
 
-                <div class="flex items-center gap-3 mt-6">
-                    @foreach ($socials as $social)
-                        <x-layout.social-icon :url="$social['url']" :icon="$social['icon']" :label="$social['label']" />
-                    @endforeach
-                </div>
+        <hr class="border-0 h-px bg-line" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[300px_190px_170px_280px] lg:justify-between gap-10">
+            <div class="flex flex-col gap-5">
+                <p class="text-[22px] font-bold uppercase">{{ config('app.name', 'Maison La Recette') }}</p>
+                <p class="text-sm leading-[1.55]">Des histoires à écouter. Des moments à partager.</p>
             </div>
 
             @foreach ($footerNavs as $heading => $links)
@@ -55,15 +50,8 @@
             @endforeach
         </div>
 
-        <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p class="text-xs text-white/30">
-                &copy; {{ date('Y') }} {{ config('app.name', 'Maison La Recette') }} · Tous droits réservés.
-            </p>
-            <div class="flex items-center gap-6">
-                @foreach ($legalLinks as $link)
-                    <a href="{{ $link['url'] }}" class="text-xs text-white/30 hover:text-white/60 transition-colors">{{ $link['label'] }}</a>
-                @endforeach
-            </div>
-        </div>
+        <p class="text-sm leading-[1.55]">
+            &copy; {{ date('Y') }} {{ config('app.name', 'Maison La Recette') }} · Tous droits réservés.
+        </p>
     </div>
 </footer>

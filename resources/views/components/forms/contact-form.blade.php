@@ -20,7 +20,7 @@
     @csrf
 
     @if (session('success'))
-        <div class="p-4 rounded-xl bg-green-50 border border-green-200 text-green-800 text-sm">
+        <div class="p-4 rounded-field bg-green-50 border border-green-200 text-green-800 text-sm">
             {{ session('success') }}
         </div>
     @endif

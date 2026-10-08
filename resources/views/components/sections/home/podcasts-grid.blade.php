@@ -1,30 +1,29 @@
 @props([
     'podcasts' => null,
-    'limit' => 6,
+    'limit' => 9,
 ])
 
 @php
     $podcasts ??= \App\Models\Podcast::query()->with('urls')->latest('publish_date')->take($limit)->get();
 @endphp
 
-<x-layout.section id="podcasts" bg="muted" class="overflow-hidden">
+<x-layout.section id="podcasts" bg="white" padding="pt-16 md:pt-[72px] pb-16 md:pb-[78px]">
+    <x-slot:decor>
+        <x-ui.wave class="bottom-0" />
+    </x-slot:decor>
+
+    <x-ui.section-heading title="Les derniers podcasts">
+        <x-ui.button :url="route('articles.index') . '#episodes'" variant="outline">Trouver mon épisode</x-ui.button>
+        <x-ui.button :url="route('articles.index')" variant="rose">Les playlists</x-ui.button>
+    </x-ui.section-heading>
+
     @if ($podcasts->isEmpty())
-        <x-ui.section-heading eyebrow="À écouter" title="Les derniers épisodes du Podcast" />
         <x-ui.empty-state message="Les premiers épisodes arrivent très bientôt." />
     @else
-        <x-ui.carousel :count="$podcasts->count()">
-            <x-slot:header>
-                <x-ui.section-heading eyebrow="À écouter" title="Les derniers épisodes du Podcast" spacing="mb-10">
-                    <x-ui.button :url="route('articles.index') . '#episodes'" variant="pill">
-                        Tous les épisodes ↗
-                    </x-ui.button>
-                    <x-ui.carousel-controls class="ml-2" />
-                </x-ui.section-heading>
-            </x-slot:header>
-
+        <x-ui.carousel>
             @foreach ($podcasts as $podcast)
                 <x-ui.carousel-item>
-                    <x-podcasts.card :podcast="$podcast" image-class="h-44" class="w-full" />
+                    <x-podcasts.card :podcast="$podcast" />
                 </x-ui.carousel-item>
             @endforeach
         </x-ui.carousel>

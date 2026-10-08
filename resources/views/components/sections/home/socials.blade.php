@@ -8,21 +8,21 @@
         [
             'network' => 'Instagram',
             'description' => 'Les coulisses du podcast, les moments partagés et les prochaines rencontres.',
-            'link_label' => 'Voir Instagram ↗',
+            'link_label' => 'Voir Instagram',
             'url' => 'https://instagram.com',
             'note' => 'Compte et lien à renseigner.',
         ],
         [
             'network' => 'LinkedIn',
             'description' => 'Les actualités du projet et les expériences pensées pour les entreprises.',
-            'link_label' => 'Voir LinkedIn ↗',
+            'link_label' => 'Voir LinkedIn',
             'url' => 'https://linkedin.com',
             'note' => 'Page et lien à renseigner.',
         ],
     ];
 @endphp
 
-<x-layout.section bg="muted" width="5xl">
+<x-layout.section>
     <x-ui.section-heading
         title="Retrouvons-nous aussi ici"
         description="Suivez nos actualités et rejoignez la communauté."

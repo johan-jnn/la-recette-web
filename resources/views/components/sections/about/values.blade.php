@@ -20,7 +20,7 @@
     ];
 @endphp
 
-<x-layout.section bg="muted">
+<x-layout.section>
     <x-ui.section-heading eyebrow="Ce qui nous anime" title="Nos piliers fondateurs" align="center" />
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

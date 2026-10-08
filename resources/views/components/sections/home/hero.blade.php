@@ -1,37 +1,29 @@
 @props([
+    'eyebrow' => 'Podcast & expériences culinaires',
     'title' => 'La cuisine se raconte. Et se partage.',
-    'subtitle' => 'PODCAST & EXPÉRIENCES CULINAIRES',
     'description' => 'Des histoires de celles et ceux qui font la cuisine, et des expériences pour se rencontrer autour de la table.',
-    'podcastUrl' => '#podcasts',
-    'experiencesUrl' => route('experiences.index'),
+    'image' => asset('images/home/hero.jpg'),
 ])
 
-<section class="relative w-full bg-[#171717] text-white pt-28 pb-20 md:py-36 px-6 md:px-16 overflow-hidden">
-    <div class="max-w-5xl mx-auto flex flex-col items-center text-center relative z-10">
-        @if ($subtitle)
-            <span class="inline-block text-xs uppercase tracking-widest font-semibold text-[#C8C8C8] mb-4">
-                {{ $subtitle }}
-            </span>
-        @endif
+{{-- Hero de présentation : photo assombrie, feuille décorative et bord découpé --}}
+<section class="relative min-h-[560px] overflow-hidden px-6 md:px-20 pt-24 pb-28 md:pt-[143px] md:pb-[100px] text-white">
+    <div aria-hidden="true" class="absolute inset-0">
+        <img src="{{ $image }}" alt="" class="size-full object-cover lg:absolute lg:left-0 lg:top-[0.08%] lg:w-[177.85%] lg:h-[283.64%] lg:max-w-none" />
+        <div class="absolute inset-0 bg-black/25"></div>
+    </div>
 
-        <h1 class="text-4xl md:text-6xl font-medium tracking-tight leading-tight md:leading-tight mb-6 max-w-3xl">
-            {{ $title }}
-        </h1>
+    <x-ui.decor name="hero-leaf" width="568" height="804" class="left-[65.3%] top-40 w-[568px] h-[804px] hidden lg:block" />
 
-        @if ($description)
-            <p class="text-base md:text-lg text-[#C8C8C8] max-w-2xl mb-10 leading-relaxed font-normal">
-                {{ $description }}
-            </p>
-        @endif
+    <div class="relative flex flex-col items-start gap-7">
+        <p class="text-sm font-semibold uppercase">{{ $eyebrow }}</p>
+        <h1 class="text-5xl md:text-display font-bold max-w-[840px]">{{ $title }}</h1>
+        <p class="text-lead max-w-[640px]">{{ $description }}</p>
 
-        <div class="flex flex-wrap items-center justify-center gap-4">
-            <x-ui.button :url="$podcastUrl" variant="light">
-                Écouter le podcast
-            </x-ui.button>
-
-            <x-ui.button :url="$experiencesUrl" variant="outline-white">
-                Découvrir les expériences
-            </x-ui.button>
+        <div class="flex flex-wrap gap-4">
+            <x-ui.button url="#podcasts">Ecouter le podcast</x-ui.button>
+            <x-ui.button :url="route('experiences.index')" variant="rose">Découvrir les expériences</x-ui.button>
         </div>
     </div>
+
+    <x-ui.wave class="bottom-0" />
 </section>

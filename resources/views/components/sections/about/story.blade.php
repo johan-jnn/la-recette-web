@@ -7,15 +7,15 @@
     ],
 ])
 
-<x-layout.section width="5xl">
+<x-layout.section>
     <x-ui.media-text :image="$image" image-alt="Atelier et rencontre culinaire" :title="$title">
         @foreach ($paragraphs as $paragraph)
             <p>{{ $paragraph }}</p>
         @endforeach
 
         <x-slot:actions>
-            <x-ui.button :url="route('experiences.index')" variant="primary">
-                Découvrir nos expériences ↗
+            <x-ui.button :url="route('experiences.index')">
+                Découvrir nos expériences
             </x-ui.button>
         </x-slot:actions>
     </x-ui.media-text>

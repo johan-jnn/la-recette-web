@@ -5,22 +5,25 @@
     'note' => null,
 ])
 
-{{-- Carte textuelle simple : titre, description, lien et note optionnels --}}
-<div {{ $attributes->merge(['class' => 'p-8 rounded-2xl bg-white border border-[#E5E5E5] flex flex-col justify-between gap-6 hover:shadow-md transition-shadow']) }}>
-    <div>
-        <h3 class="text-xl font-bold text-[#171717] mb-3">{{ $title }}</h3>
+{{-- Carte textuelle : titre, description, lien et note optionnels --}}
+<div {{ $attributes->merge(['class' => 'p-8 rounded-card bg-white flex flex-col justify-between gap-6']) }}>
+    <div class="flex flex-col gap-4">
+        <h3 class="text-subtitle font-bold text-forest">{{ $title }}</h3>
         @if ($description)
-            <p class="text-sm text-[#626262] leading-relaxed">{{ $description }}</p>
+            <p class="text-base leading-[1.55] text-muted">{{ $description }}</p>
         @endif
     </div>
 
     @if ($link)
-        <div>
-            <x-ui.text-link :url="$link['url']" :external="$link['external'] ?? false" tone="dark">
+        <div class="flex flex-col gap-2 items-start">
+            <x-ui.button :url="$link['url']" :external="$link['external'] ?? false" variant="outline">
                 {{ $link['label'] }}
-            </x-ui.text-link>
+                @if (!empty($link['external']))
+                    <x-ui.icon name="arrow-up-right" size="w-3 h-3" />
+                @endif
+            </x-ui.button>
             @if ($note)
-                <p class="text-xs text-[#808080] mt-1">{{ $note }}</p>
+                <p class="text-sm text-muted">{{ $note }}</p>
             @endif
         </div>
     @endif

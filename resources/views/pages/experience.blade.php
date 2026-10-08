@@ -12,5 +12,4 @@
 
     <x-sections.experiences.list />
     <x-sections.home.faq />
-    <x-sections.home.newsletter />
 @endpush

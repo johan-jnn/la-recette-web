@@ -1,30 +1,31 @@
 @props([
-    'bg' => 'white', // white, muted, brand, dark
-    'width' => '6xl', // 2xl, 3xl, 4xl, 5xl, 6xl
-    'border' => false,
-    'padding' => 'py-20',
+    'bg' => 'cream', // cream, white, forest, sage
+    'width' => 'page', // page (1280px), 5xl, 3xl, 2xl
+    'padding' => 'py-16 md:py-[72px]',
 ])
 
 @php
     $bgClasses = match ($bg) {
-        'muted' => 'bg-[#F9F9FB]',
-        'brand' => 'bg-[#1C4937] text-white',
-        'dark' => 'bg-[#171717] text-white',
-        default => 'bg-white',
+        'white' => 'bg-white',
+        'forest' => 'bg-forest text-white',
+        'sage' => 'bg-sage text-white',
+        default => 'bg-cream',
     };
 
     // Classes listées en entier pour que Tailwind les détecte
     $widthClasses = match ($width) {
         '2xl' => 'max-w-2xl',
         '3xl' => 'max-w-3xl',
-        '4xl' => 'max-w-4xl',
         '5xl' => 'max-w-5xl',
-        default => 'max-w-6xl',
+        default => 'max-w-page',
     };
 @endphp
 
-<section {{ $attributes->merge(['class' => "w-full {$padding} px-6 md:px-16 {$bgClasses}" . ($border ? ' border-t border-[#E5E5E5]' : '')]) }}>
-    <div class="{{ $widthClasses }} mx-auto">
+{{-- Section pleine largeur (fond) + conteneur centré. Slot "decor" : éléments décoratifs absolus. --}}
+<section {{ $attributes->merge(['class' => "relative w-full overflow-hidden px-6 md:px-20 {$padding} {$bgClasses}"]) }}>
+    {{ $decor ?? '' }}
+
+    <div class="relative {{ $widthClasses }} mx-auto">
         {{ $slot }}
     </div>
 </section>

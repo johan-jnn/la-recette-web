@@ -2,7 +2,7 @@
     'podcasts',
 ])
 
-<div {{ $attributes->merge(['class' => 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6']) }}>
+<div {{ $attributes->merge(['class' => 'flex flex-wrap justify-center gap-8 lg:gap-11']) }}>
     @forelse ($podcasts as $podcast)
         <x-podcasts.card :podcast="$podcast" />
     @empty

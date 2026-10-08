@@ -3,6 +3,6 @@
 ])
 
 {{-- Panneau blanc mis en avant (formulaires…) --}}
-<div {{ $attributes->merge(['class' => "{$padding} rounded-3xl bg-white border border-[#E5E5E5] shadow-sm"]) }}>
+<div {{ $attributes->merge(['class' => "{$padding} rounded-card bg-white"]) }}>
     {{ $slot }}
 </div>

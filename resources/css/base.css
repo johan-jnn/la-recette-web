@@ -1,0 +1,14 @@
+/* Styles globaux */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-cream font-sans text-forest antialiased;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}

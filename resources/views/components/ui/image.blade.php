@@ -1,7 +1,7 @@
 @props([
     'src' => null,
     'alt' => '',
-    'fallback' => 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop',
+    'fallback' => null,
     'lazy' => true,
 ])
 
@@ -15,9 +15,11 @@
     };
 @endphp
 
+@if ($url)
 <img
     src="{{ $url }}"
     alt="{{ $alt }}"
     @if ($lazy) loading="lazy" @endif
     {{ $attributes->merge(['class' => 'w-full h-full object-cover']) }}
 />
+@endif

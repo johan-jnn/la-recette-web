@@ -1,0 +1,39 @@
+/*
+ * Boutons "pilule" de la maquette (composant Figma "Bouton").
+ * Utilisés par <x-ui.button> et <x-forms.submit-button> : class="btn btn-sage".
+ */
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill border border-transparent px-6 py-3.5 text-base font-semibold leading-tight whitespace-nowrap transition-colors duration-200 cursor-pointer;
+}
+
+@utility btn-sage {
+    @apply bg-sage text-white hover:bg-sage/85;
+}
+
+@utility btn-forest {
+    @apply bg-forest text-white hover:bg-forest/85;
+}
+
+@utility btn-rose {
+    @apply bg-rose text-white hover:bg-rose/85;
+}
+
+@utility btn-sun {
+    @apply bg-sun text-forest hover:bg-sun/85;
+}
+
+@utility btn-sun-light {
+    @apply bg-sun text-cream hover:bg-sun/85;
+}
+
+@utility btn-white {
+    @apply bg-white text-forest hover:bg-cream;
+}
+
+@utility btn-outline {
+    @apply border-sage bg-white text-sage hover:bg-sage hover:text-white;
+}
+
+@utility btn-neutral {
+    @apply border-line bg-white text-ink hover:bg-cream;
+}

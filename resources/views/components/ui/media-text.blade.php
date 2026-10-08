@@ -3,29 +3,28 @@
     'imageAlt' => '',
     'eyebrow' => null,
     'title',
+    'tone' => 'forest', // forest, light
     'reverse' => false,
+    'imageClass' => 'h-[340px] rounded-image',
 ])
 
-{{-- Bloc texte + visuel côte à côte --}}
-<div {{ $attributes->merge(['class' => 'grid grid-cols-1 md:grid-cols-2 gap-12 items-center']) }}>
-    <div class="space-y-6 text-[#626262] leading-relaxed text-base {{ $reverse ? 'md:order-2' : '' }}">
-        <div>
-            @if ($eyebrow)
-                <x-ui.eyebrow spacing="mb-3">{{ $eyebrow }}</x-ui.eyebrow>
-            @endif
-            <h2 class="text-3xl md:text-4xl font-semibold text-[#171717] tracking-tight leading-snug">
-                {{ $title }}
-            </h2>
+{{-- Bloc texte + visuel côte à côte (sections "Bienvenue", "Offres podcast"…) --}}
+<div {{ $attributes->merge(['class' => 'relative grid grid-cols-1 md:grid-cols-2 gap-8 items-start']) }}>
+    <div class="flex flex-col gap-5 items-start {{ $tone === 'light' ? 'text-white' : 'text-forest' }} {{ $reverse ? 'md:order-2' : '' }}">
+        @if ($eyebrow)
+            <x-ui.eyebrow :tone="$tone">{{ $eyebrow }}</x-ui.eyebrow>
+        @endif
+
+        <h2 class="text-title font-bold">{{ $title }}</h2>
+
+        <div class="flex flex-col gap-5 text-body-lg">
+            {{ $slot }}
         </div>
 
-        {{ $slot }}
-
         @isset($actions)
-            <div class="pt-2">{{ $actions }}</div>
+            <div class="flex flex-wrap items-center gap-6">{{ $actions }}</div>
         @endisset
     </div>
 
-    <div class="rounded-3xl overflow-hidden shadow-sm aspect-4/3 bg-[#E5E5E5]">
-        <x-ui.image :src="$image" :alt="$imageAlt ?: $title" />
-    </div>
+    <x-ui.media :src="$image" :alt="$imageAlt ?: $title" radius="" class="w-full {{ $imageClass }}" />
 </div>

@@ -1,0 +1,9 @@
+/* Rayons d'arrondi et dimensions récurrentes de la maquette */
+@theme {
+    --radius-image: 10px;   /* Visuels d'expérience / présentation */
+    --radius-field: 12px;   /* Champs, items de FAQ */
+    --radius-card: 20px;    /* Cartes, bandeaux */
+    --radius-pill: 30px;    /* Boutons */
+
+    --container-page: 80rem; /* 1280px — largeur du contenu */
+}

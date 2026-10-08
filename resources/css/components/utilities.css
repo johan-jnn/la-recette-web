@@ -1,0 +1,10 @@
+/* Utilitaires spécifiques au projet */
+
+/* Masque la barre de défilement tout en gardant le scroll (carrousels) */
+@utility scrollbar-none {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

@@ -2,20 +2,15 @@
     'urls', // Collection<App\Models\PodcastUrl>
 ])
 
-{{-- Liens d'écoute d'un épisode : un lien principal + une icône par plateforme --}}
+{{-- Icônes des plateformes où l'épisode est disponible --}}
 @if ($urls->isNotEmpty())
-    <div {{ $attributes->merge(['class' => 'flex items-center gap-3']) }}>
-        <x-ui.text-link :url="$urls->first()->url" external>
-            <x-ui.icon name="play" />
-            Écouter
-        </x-ui.text-link>
-
+    <div {{ $attributes->merge(['class' => 'flex items-center gap-2']) }}>
         @foreach ($urls as $podcastUrl)
             <a
                 href="{{ $podcastUrl->url }}"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-[#808080] hover:text-[#1C4937] transition-colors"
+                class="text-forest hover:text-sage transition-colors"
                 aria-label="Écouter sur {{ $podcastUrl->platform->getLabel() }}"
                 title="{{ $podcastUrl->platform->getLabel() }}"
             >

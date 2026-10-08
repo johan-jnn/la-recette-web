@@ -13,5 +13,4 @@
     <x-sections.about.story />
     <x-sections.about.values />
     <x-sections.home.socials />
-    <x-sections.home.newsletter />
 @endpush

@@ -20,6 +20,7 @@
         'chevron-right' => ['M9 5l7 7-7 7'],
         'chevron-down' => ['M19 9l-7 7-7-7'],
         'clock' => ['M12 8v4l3 3', 'M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
+        'arrow-up-right' => ['M7 17L17 7', 'M8 7h9v9'],
     ];
 @endphp
 

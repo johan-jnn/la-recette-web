@@ -1,7 +1,7 @@
 @props([
     'items' => null,
-    'eyebrow' => 'Avant de réserver',
     'title' => 'FAQ · Réservation & participation',
+    'subtitle' => 'Avant de réserver',
     'description' => 'Retrouvez ici les informations utiles pour préparer votre participation.',
 ])
 
@@ -10,7 +10,7 @@
     $items ??= [
         [
             'question' => 'Comment confirmer ma réservation ?',
-            'answer' => 'Modalités de confirmation à préciser. Vous recevrez un email récapitulatif dès la validation.',
+            'answer' => 'Votre confirmation vous est envoyée par mail via un lien, ajoutable à votre calendrier.',
         ],
         [
             'question' => 'Quels sont les horaires et le lieu ?',
@@ -27,12 +27,23 @@
     ];
 @endphp
 
-<x-layout.section width="4xl">
-    <x-ui.section-heading :eyebrow="$eyebrow" :title="$title" :description="$description" spacing="mb-10" />
+<x-layout.section id="faq">
+    <div class="flex flex-col gap-8 text-forest">
+        <h2 class="text-title font-bold">{{ $title }}</h2>
 
-    <div>
-        @foreach ($items as $item)
-            <x-ui.faq-item :question="$item['question']" :answer="$item['answer']" />
-        @endforeach
+        <div class="flex flex-col gap-5">
+            @if ($subtitle)
+                <h3 class="text-subtitle font-bold">{{ $subtitle }}</h3>
+            @endif
+            @if ($description)
+                <p class="text-body-lg">{{ $description }}</p>
+            @endif
+
+            <div class="flex flex-col gap-3">
+                @foreach ($items as $item)
+                    <x-ui.faq-item :question="$item['question']" :answer="$item['answer']" :open="$loop->first" />
+                @endforeach
+            </div>
+        </div>
     </div>
 </x-layout.section>

@@ -1,0 +1,21 @@
+/*
+ * Couleurs de la maquette Figma "Maison La Recette".
+ * Utilisables via les utilitaires Tailwind : bg-cream, text-forest, border-line…
+ */
+@theme {
+    /* Marque */
+    --color-cream: #f6f4e4;   /* Fond principal */
+    --color-forest: #1c4937;  /* Vert foncé : titres, CTA, sections sombres */
+    --color-sage: #61af89;    /* Vert clair : boutons, bandeaux */
+    --color-rose: #f4a1bb;    /* Rose : boutons secondaires, carrousel */
+    --color-sun: #f3c10a;     /* Jaune : boutons articles / offres */
+
+    /* Neutres */
+    --color-ink: #171717;     /* Texte des champs et de la FAQ */
+    --color-muted: #626262;   /* Textes secondaires */
+    --color-line: #c8c8c8;    /* Bordures et séparateurs */
+    --color-placeholder: #d9d9d9; /* Fond des emplacements d'image */
+
+    /* Partenaires */
+    --color-trustpilot: #219653;
+}

@@ -5,57 +5,58 @@
 ])
 
 @php
-    // Liens principaux : 'route' sert aussi à détecter la page active
+    use Illuminate\Support\Facades\Route;
+
+    // "pattern" sert à détecter la page active ; les pages pas encore créées pointent vers "#"
     $nav ??= [
-        ['label' => 'Podcast', 'route' => 'articles.index'],
-        ['label' => 'Expériences', 'route' => 'experiences.*', 'url' => route('experiences.index')],
-        ['label' => 'À propos', 'route' => 'about'],
+        ['label' => 'Podcast', 'url' => route('articles.index') . '#episodes', 'pattern' => null],
+        ['label' => 'Studio', 'url' => Route::has('studio') ? route('studio') : '#', 'pattern' => 'studio'],
+        ['label' => 'Expériences', 'url' => route('experiences.index'), 'pattern' => 'experiences.*'],
+        ['label' => 'Découvrez la Maison', 'url' => route('about'), 'pattern' => 'about'],
+        ['label' => 'Blog', 'url' => route('articles.index'), 'pattern' => 'articles.*'],
     ];
 
     $cta ??= ['label' => 'Nous contacter', 'url' => route('contact.index')];
 @endphp
 
-<header class="{{ $sticky ? 'sticky' : 'fixed' }} top-0 left-0 w-full z-50 px-4 md:px-8 py-3 md:py-4 transition-all" x-data="{ open: false }">
-    <div class="max-w-6xl mx-auto px-6 py-3.5 rounded-2xl bg-[#F6F4E4]/95 backdrop-blur-md border border-[#E8E4D0] shadow-sm">
-        <div class="flex justify-between items-center gap-6">
-            <x-layout.logo class="text-lg text-[#1C4937]" />
+<header
+    class="{{ $sticky ? 'sticky' : 'relative' }} top-0 z-50 w-full bg-cream"
+    x-data="{ open: false }"
+>
+    <div class="flex h-[94px] items-center justify-between gap-6 pl-6 pr-4 md:pl-[77px] md:pr-8">
+        <x-layout.logo />
 
-            <nav class="hidden md:flex items-center gap-6 lg:gap-8">
-                @foreach ($nav as $item)
-                    <x-layout.nav-link :url="$item['url'] ?? route($item['route'])" :active="request()->routeIs($item['route'])">
-                        {{ $item['label'] }}
-                    </x-layout.nav-link>
-                @endforeach
-            </nav>
-
-            <div class="flex items-center gap-3">
-                <a
-                    href="{{ $cta['url'] }}"
-                    class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#1C4937] text-white text-sm font-semibold hover:bg-[#143628] transition-colors shadow-sm"
-                >
-                    {{ $cta['label'] }}
-                </a>
-
-                {{-- Menu mobile --}}
-                <button
-                    type="button"
-                    class="md:hidden w-10 h-10 flex items-center justify-center rounded-full text-[#1C4937] cursor-pointer"
-                    @click="open = !open"
-                    :aria-expanded="open"
-                    aria-label="Ouvrir le menu"
-                >
-                    <x-ui.icon name="chevron-down" size="w-5 h-5" class="transition-transform" x-bind:class="open ? 'rotate-180' : ''" />
-                </button>
-            </div>
-        </div>
-
-        <nav class="md:hidden flex flex-col gap-4 pt-4 mt-4 border-t border-[#E8E4D0]" x-show="open" x-transition style="display: none;">
+        <nav class="hidden lg:flex items-center gap-[26px]" aria-label="Navigation principale">
             @foreach ($nav as $item)
-                <x-layout.nav-link :url="$item['url'] ?? route($item['route'])" :active="request()->routeIs($item['route'])">
+                <x-layout.nav-link :url="$item['url']" :active="$item['pattern'] && request()->routeIs($item['pattern'])">
                     {{ $item['label'] }}
                 </x-layout.nav-link>
             @endforeach
-            <x-layout.nav-link :url="$cta['url']">{{ $cta['label'] }}</x-layout.nav-link>
         </nav>
+
+        <div class="flex items-center gap-3">
+            <x-ui.button :url="$cta['url']" variant="forest" class="hidden sm:inline-flex">
+                {{ $cta['label'] }}
+            </x-ui.button>
+
+            <button
+                type="button"
+                class="lg:hidden flex size-11 items-center justify-center rounded-pill text-forest cursor-pointer"
+                @click="open = !open"
+                :aria-expanded="open"
+                aria-label="Ouvrir le menu"
+            >
+                <x-ui.icon name="chevron-down" size="w-6 h-6" class="transition-transform" x-bind:class="open ? 'rotate-180' : ''" />
+            </button>
+        </div>
     </div>
+
+    <nav class="lg:hidden flex flex-col gap-4 px-6 pb-6" x-show="open" x-transition x-cloak aria-label="Navigation mobile">
+        @foreach ($nav as $item)
+            <x-layout.nav-link :url="$item['url']" :active="$item['pattern'] && request()->routeIs($item['pattern'])">
+                {{ $item['label'] }}
+            </x-layout.nav-link>
+        @endforeach
+        <x-ui.button :url="$cta['url']" variant="forest" class="sm:hidden self-start">{{ $cta['label'] }}</x-ui.button>
+    </nav>
 </header>

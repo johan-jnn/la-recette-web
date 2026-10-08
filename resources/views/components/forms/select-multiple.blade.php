@@ -13,7 +13,7 @@
     // "experience_ids[]" -> clé "experience_ids" pour old() et les erreurs
     $key = str_replace('[]', '', $name);
     $selectedValues = array_map('strval', array_values((array) old($key, $selected ?? [])));
-    $triggerState = $errors->has($key) || $errors->has("{$key}.*") ? 'border-red-500 ring-2 ring-red-500/20' : 'border-[#D6D6D6] hover:border-[#171717]';
+    $triggerState = $errors->has($key) || $errors->has("{$key}.*") ? 'border-red-500 ring-2 ring-red-500/20' : 'border-line hover:border-forest';
 @endphp
 
 <x-forms.field
@@ -51,32 +51,32 @@
         @click="open = !open"
         @keydown.enter.prevent="open = !open"
         :aria-expanded="open"
-        class="w-full min-h-[46px] px-3 py-2 rounded-xl bg-white border text-sm flex flex-wrap gap-1.5 items-center justify-between cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-[#1C4937]/20 {{ $triggerState }}"
+        class="w-full min-h-[46px] px-3 py-2 rounded-field bg-white border text-sm flex flex-wrap gap-1.5 items-center justify-between cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-sage/30 {{ $triggerState }}"
     >
         <div class="flex flex-wrap gap-1.5 items-center flex-1">
-            <span x-show="selected.length === 0" class="text-[#808080] text-sm px-1" x-text="placeholder"></span>
+            <span x-show="selected.length === 0" class="text-muted text-sm px-1" x-text="placeholder"></span>
 
             <template x-for="val in selected" :key="val">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#F6F4E4] text-[#1C4937] border border-[#E8E4D0]">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-cream text-forest border border-line">
                     <span x-text="labelOf(val)" class="max-w-[200px] truncate"></span>
                     <button type="button" @click.stop="remove(val)" class="hover:text-black font-bold text-xs leading-none focus:outline-none" aria-label="Retirer">×</button>
                 </span>
             </template>
         </div>
 
-        <x-ui.icon name="chevron-down" class="text-[#808080] transition-transform duration-200 shrink-0 ml-2" x-bind:class="open ? 'rotate-180 text-[#1C4937]' : ''" />
+        <x-ui.icon name="chevron-down" class="text-muted transition-transform duration-200 shrink-0 ml-2" x-bind:class="open ? 'rotate-180 text-forest' : ''" />
     </div>
 
     <x-forms.dropdown>
         <template x-for="option in options" :key="option.value">
             <div
                 @click="toggle(option.value)"
-                class="px-4 py-2.5 text-sm cursor-pointer transition-colors flex items-center gap-2 hover:bg-[#F6F4E4]/60 text-[#171717]"
-                :class="isSelected(option.value) ? 'font-semibold text-[#1C4937] bg-[#F6F4E4]' : ''"
+                class="px-4 py-2.5 text-sm cursor-pointer transition-colors flex items-center gap-2 hover:bg-cream text-ink"
+                :class="isSelected(option.value) ? 'font-semibold text-forest bg-cream' : ''"
             >
                 <span
                     class="w-4 h-4 rounded border flex items-center justify-center text-xs"
-                    :class="isSelected(option.value) ? 'bg-[#1C4937] border-[#1C4937] text-white' : 'border-[#D6D6D6] bg-white'"
+                    :class="isSelected(option.value) ? 'bg-sage border-sage text-white' : 'border-line bg-white'"
                 >
                     <span x-show="isSelected(option.value)">✓</span>
                 </span>

@@ -1,51 +1,61 @@
-@props([
-    'count' => 0,
-])
-
 {{--
-    Carrousel responsive (1 / 2 / 3 éléments visibles).
-    Slots : "header" (reçoit le scope Alpine, ex. <x-ui.carousel-controls />) et le slot par défaut (éléments).
-    Chaque élément doit être enveloppé dans <x-ui.carousel-item>.
+    Carrousel à défilement horizontal (scroll-snap) : flèches roses de part et d'autre
+    et pastilles de pagination. Chaque élément est enveloppé dans <x-ui.carousel-item>.
 --}}
 <div
-    {{ $attributes }}
+    {{ $attributes->merge(['class' => 'flex flex-col gap-8']) }}
     x-data="{
-        currentSlide: 0,
-        totalItems: {{ (int) $count }},
-        perPage() {
-            return window.innerWidth >= 1024 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
+        page: 0,
+        pages: 1,
+        update() {
+            const track = this.$refs.track;
+            this.pages = Math.max(1, Math.ceil((track.scrollWidth - 1) / track.clientWidth));
+            this.page = Math.min(this.pages - 1, Math.round(track.scrollLeft / track.clientWidth));
         },
-        maxIndex() {
-            return Math.max(0, this.totalItems - this.perPage());
-        },
-        next() {
-            this.currentSlide = this.currentSlide < this.maxIndex() ? this.currentSlide + 1 : 0;
-        },
-        prev() {
-            this.currentSlide = this.currentSlide > 0 ? this.currentSlide - 1 : this.maxIndex();
+        go(index) {
+            const target = (index + this.pages) % this.pages;
+            this.$refs.track.scrollTo({ left: target * this.$refs.track.clientWidth, behavior: 'smooth' });
         }
     }"
-    @resize.window="currentSlide = Math.min(currentSlide, maxIndex())"
+    x-init="$nextTick(() => update())"
+    @resize.window.debounce.150ms="update()"
 >
-    {{ $header ?? '' }}
-
-    <div class="relative overflow-hidden py-2 -mx-2 px-2">
-        <div
-            class="flex gap-6 transition-transform duration-500 ease-out"
-            :style="'transform: translateX(calc(-' + currentSlide + ' * (100% + 24px) / ' + perPage() + '))'"
+    <div class="flex items-center gap-4 lg:gap-11">
+        <button
+            type="button"
+            class="hidden md:block shrink-0 cursor-pointer transition-opacity hover:opacity-80 disabled:opacity-0"
+            :disabled="pages < 2"
+            @click="go(page - 1)"
+            aria-label="Précédent"
         >
-            {{ $slot }}
+            <img src="{{ asset('images/icons/arrow-circle.svg') }}" alt="" width="75" height="75" class="size-[75px]" />
+        </button>
+
+        <div x-ref="track" @scroll.debounce.100ms="update()" class="flex-1 min-w-0 overflow-x-auto scrollbar-none snap-x snap-mandatory">
+            <div class="flex gap-6 lg:gap-11 w-max min-w-full justify-center">
+                {{ $slot }}
+            </div>
         </div>
+
+        <button
+            type="button"
+            class="hidden md:block shrink-0 cursor-pointer transition-opacity hover:opacity-80 disabled:opacity-0"
+            :disabled="pages < 2"
+            @click="go(page + 1)"
+            aria-label="Suivant"
+        >
+            <img src="{{ asset('images/icons/arrow-circle.svg') }}" alt="" width="75" height="75" class="size-[75px] rotate-180" />
+        </button>
     </div>
 
-    <div class="flex items-center justify-center gap-2 mt-8" x-show="maxIndex() > 0">
-        <template x-for="i in (maxIndex() + 1)" :key="i">
+    <div class="flex items-center justify-center gap-1" x-show="pages > 1">
+        <template x-for="i in pages" :key="i">
             <button
                 type="button"
-                @click="currentSlide = i - 1"
-                class="transition-all duration-300 rounded-full cursor-pointer h-2"
-                :class="currentSlide === (i - 1) ? 'w-6 bg-[#1C4937]' : 'w-2 bg-[#D6D6D6] hover:bg-[#808080]'"
-                :aria-label="'Aller à la vue ' + i"
+                @click="go(i - 1)"
+                class="rounded-pill bg-rose transition-all duration-300 cursor-pointer"
+                :class="page === i - 1 ? 'w-9 h-3' : 'size-3.5'"
+                :aria-label="'Aller à la page ' + i"
             ></button>
         </template>
     </div>
