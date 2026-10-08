@@ -7,7 +7,7 @@
 ])
 
 @php
-    // Options du type de contact depuis l'Enum ContactType conforme au modèle BDD
+    // Options du type de contact depuis l'Enum ContactType
     $contactTypes = [];
     foreach (\App\Enums\ContactType::cases() as $case) {
         $contactTypes[$case->value] = $case->getLabel();
@@ -65,7 +65,7 @@
         />
     </div>
 
-    {{-- Type de demande & Entreprise (selon modèle ContactEntry) --}}
+    {{-- Type de demande (Select custom) & Entreprise --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <x-forms.select
             name="type"
@@ -82,30 +82,14 @@
         />
     </div>
 
-    {{-- Expériences associées (Optionnel, relation Many-to-Many ContactExperience) --}}
+    {{-- Expériences associées (Select Multiple custom) --}}
     @if (!empty($experiences))
-        <div class="flex flex-col gap-2">
-            <label class="text-sm font-medium text-[#171717]">
-                Expériences concernées (optionnel)
-            </label>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 p-3 rounded-xl bg-[#F9F9FB] border border-[#E5E5E5]">
-                @foreach ($experiences as $id => $title)
-                    <label class="flex items-center gap-2.5 text-xs text-[#171717] cursor-pointer py-1 px-1.5 hover:bg-white rounded-lg transition-colors">
-                        <input
-                            type="checkbox"
-                            name="experience_ids[]"
-                            value="{{ $id }}"
-                            class="rounded border-[#D6D6D6] text-[#1C4937] focus:ring-[#1C4937]/30"
-                            {{ in_array($id, old('experience_ids', [])) ? 'checked' : '' }}
-                        />
-                        <span class="line-clamp-1">{{ $title }}</span>
-                    </label>
-                @endforeach
-            </div>
-            @error('experience_ids')
-                <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
-            @enderror
-        </div>
+        <x-forms.select-multiple
+            name="experience_ids[]"
+            label="Expériences concernées (optionnel)"
+            :options="$experiences"
+            placeholder="Sélectionner une ou plusieurs expériences"
+        />
     @endif
 
     {{-- Sujet --}}
