@@ -8,6 +8,8 @@
         @yield('title', $title ?? env('APP_NAME'))
     </title>
     <meta name="description" content="@yield('description', $description ?? env('APP_NAME'))">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/brand/logo-mark.svg') }}?v=2">
+    <link rel="shortcut icon" type="image/svg+xml" href="{{ asset('images/brand/logo-mark.svg') }}?v=2">
 
     {{-- Active l'état initial des animations avant le premier rendu --}}
     <script>document.documentElement.classList.add('js')</script>
