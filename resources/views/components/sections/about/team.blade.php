@@ -13,12 +13,16 @@
     ];
 @endphp
 
-<x-layout.section>
+<x-layout.section padding="pt-16 md:pt-[72px] pb-24 md:pb-[103px]">
+    <x-slot:decor>
+        <x-ui.wave variant="white" />
+    </x-slot:decor>
+
     <x-ui.section-heading :title="$title" :description="$description" />
 
     <div data-reveal-stagger class="grid grid-cols-1 md:grid-cols-3 gap-8">
         @foreach ($members as $member)
-            <x-ui.profile-card :image="$member['image']" :title="$member['role']" :description="$member['bio']" />
+            <x-ui.profile-card :image="$member['image']" :title="$member['role']" :description="$member['bio']" shape="round" />
         @endforeach
     </div>
 </x-layout.section>

@@ -1,5 +1,7 @@
 @props([
     'article', // App\Models\Article
+    'buttonVariant' => 'sun', // sun (accueil), rose (blog), sage (suite de lecture)
+    'buttonIcon' => false, // flèche après le libellé
 ])
 
 @php
@@ -24,5 +26,10 @@
 
     <p class="text-body-lg text-muted line-clamp-3">{{ $article->description }}</p>
 
-    <x-ui.button :url="$url" variant="sun" class="w-full mt-auto">Lire l’article</x-ui.button>
+    <x-ui.button :url="$url" :variant="$buttonVariant" class="self-center mt-auto">
+        Lire l’article
+        @if ($buttonIcon)
+            <x-ui.icon name="arrow-up-right" size="w-4 h-4" />
+        @endif
+    </x-ui.button>
 </article>

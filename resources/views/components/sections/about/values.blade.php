@@ -23,12 +23,12 @@
     ];
 @endphp
 
-<x-layout.section>
-    <x-ui.section-heading :eyebrow="mb_strtoupper($eyebrow)" :title="$title" :description="$description" />
+<x-layout.section bg="forest">
+    <x-ui.section-heading :eyebrow="mb_strtoupper($eyebrow)" :title="$title" :description="$description" tone="light" />
 
     <div data-reveal-stagger class="grid grid-cols-1 md:grid-cols-3 gap-8">
         @foreach ($values as $value)
-            <x-ui.text-card :title="$value['title']" :description="$value['description']" />
+            <x-ui.text-card :title="$value['title']" :description="$value['description']" class="md:min-h-[306px]" />
         @endforeach
     </div>
 </x-layout.section>

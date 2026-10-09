@@ -13,11 +13,11 @@
 @endphp
 
 @if ($articles->isNotEmpty())
-    <x-layout.section bg="white">
-        <x-ui.section-heading title="À lire aussi">
-            <x-ui.button :url="route('articles.index')" variant="outline">Tous les articles</x-ui.button>
+    <x-layout.section>
+        <x-ui.section-heading title="Pour prolonger la lecture">
+            <x-ui.button :url="route('articles.index')" variant="forest">Tous les articles</x-ui.button>
         </x-ui.section-heading>
 
-        <x-articles.grid :articles="$articles" />
+        <x-articles.grid :articles="$articles" button-variant="sage" />
     </x-layout.section>
 @endif

@@ -15,22 +15,28 @@
     ];
 @endphp
 
-<x-layout.section bg="white">
+<x-layout.section bg="white" class="overflow-hidden" padding="pt-16 md:pt-[72px] pb-24 md:pb-[103px]">
+    <x-slot:decor>
+        <x-ui.decor name="tomato" width="400" height="311" color="sage" class="right-[-103px] bottom-[-53px] w-[400px] h-[311px] hidden md:block" />
+        <x-ui.wave />
+    </x-slot:decor>
+
     <x-ui.media-text
         :image="$founder['image']"
         :image-alt="$founder['name']"
         eyebrow="LA FONDATRICE"
+        eyebrow-tone="rose"
         :title="$founder['name']"
         reverse
         columns="md:grid-cols-[480px_1fr]"
-        image-class="h-[430px] rounded-image"
+        image-class="h-[430px] rounded-card"
     >
         @foreach ($founder['paragraphs'] as $paragraph)
             <p class="text-muted">{{ $paragraph }}</p>
         @endforeach
 
         <x-slot:actions>
-            <x-ui.button :url="route('contact.index')" variant="outline">Entrer en contact</x-ui.button>
+            <x-ui.button :url="route('contact.index')" variant="rose">Prendre contact</x-ui.button>
         </x-slot:actions>
     </x-ui.media-text>
 </x-layout.section>

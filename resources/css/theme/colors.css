@@ -8,6 +8,7 @@
     --color-forest: #1c4937;  /* Vert foncé : titres, CTA, sections sombres */
     --color-sage: #61af89;    /* Vert clair : boutons, bandeaux */
     --color-rose: #f4a1bb;    /* Rose : boutons secondaires, carrousel */
+    --color-rose-light: #f1b8c9; /* Rose clair : cartes sur bandeau rose */
     --color-sun: #f3c10a;     /* Jaune : boutons articles / offres */
 
     /* Neutres */

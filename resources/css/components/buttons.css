@@ -31,7 +31,7 @@
 }
 
 @utility btn-cream {
-    @apply border-line bg-cream text-forest hover:bg-white;
+    @apply bg-cream text-forest hover:bg-white;
 }
 
 @utility btn-white {

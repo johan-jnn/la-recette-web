@@ -26,24 +26,27 @@
 @endphp
 
 @push('main')
-    <x-ui.page-hero
-        :breadcrumb="[['label' => 'Studio']]"
+    <x-sections.shared.hero-card
         title="Amplifiez votre impact grâce au podcast"
         description="Un studio de production de podcasts qui aide les organisations engagées dans l’alimentation durable à faire entendre leur voix."
+        bg="cream"
     >
-        <div class="flex flex-wrap gap-4">
-            <x-ui.button url="#contact">Demander un devis</x-ui.button>
-            <x-ui.button url="#offres" variant="outline">Découvrir nos offres</x-ui.button>
-        </div>
-    </x-ui.page-hero>
+        <x-slot:decor>
+            <x-ui.decor name="on-air" width="307" height="264" class="left-[78.2%] top-[18.5%] w-[307px] h-[264px] hidden lg:block" />
+        </x-slot:decor>
+
+        <x-slot:after>
+            <x-ui.wave edge="below" />
+        </x-slot:after>
+
+        <x-ui.button url="#contact" variant="cream">Nous contacter</x-ui.button>
+        <x-ui.button url="#offres">Découvrir nos offres</x-ui.button>
+    </x-sections.shared.hero-card>
 
     <x-sections.studio.offers />
-    <x-sections.studio.stats />
-    <x-sections.home.listen title="Écoutez notre savoir-faire" />
-    <x-sections.studio.expertise />
-    <x-sections.studio.events />
+    <x-sections.home.listen variant="plain" :wave="false" />
 
-    <x-sections.experiences.contact
+    <x-sections.shared.contact
         title="Parlons de votre projet"
         description="Sponsoring, production d’un podcast ou enregistrement d’un évènement : décrivez-nous votre projet, nous revenons vers vous avec une proposition sur mesure."
         selected-type="devis"
@@ -52,8 +55,9 @@
     <x-sections.home.faq
         :items="$faqItems"
         title="FAQ · Studio"
-        subtitle=""
+        subtitle="Avant de vous lancer"
         description="Quelques réponses avant de lancer votre projet."
-        bg="white"
     />
+
+    <x-sections.home.cta bg="white" tone="sage" fork-side="right" padding="pt-16 md:pt-[72px] pb-32 md:pb-[142px]" quote="Prêt·e à faire entendre votre voix ?" />
 @endpush

@@ -1,8 +1,8 @@
 @props([
     'socials' => null,
     'title' => 'Retrouvons-nous aussi ici',
-    'description' => 'Suivez nos actualités et rejoignez la communauté de La recette.',
-    'align' => 'center',
+    'description' => null,
+    'align' => 'left',
 ])
 
 @php
@@ -18,19 +18,23 @@
         [
             'network' => 'Instagram',
             'description' => 'Les coulisses du podcast, les rencontres avec nos invité·es et les prochaines expériences.',
-            'link_label' => 'Voir Instagram',
+            'link_label' => 'Suivre',
             'url' => $urls[Settings::INSTAGRAM_URL->value] ?? null,
         ],
         [
             'network' => 'LinkedIn',
             'description' => 'Les actualités du studio et les expériences pensées pour les entreprises : teambuildings, séminaires, afterworks.',
-            'link_label' => 'Voir LinkedIn',
+            'link_label' => 'Suivre',
             'url' => $urls[Settings::LINKEDIN_URL->value] ?? null,
         ],
     ];
 @endphp
 
-<x-layout.section>
+<x-layout.section bg="white" padding="pt-16 md:pt-[77px] pb-24 md:pb-[114px]">
+    <x-slot:decor>
+        <x-ui.decor name="strawberry" width="300" height="374" color="sage" class="left-[-72px] top-[309px] w-[300px] h-[374px] hidden md:block" />
+    </x-slot:decor>
+
     <x-ui.section-heading :title="$title" :description="$description" :align="$align" />
 
     <div data-reveal-stagger class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -40,6 +44,7 @@
                 :description="$social['description']"
                 :link="filled($social['url']) ? ['label' => $social['link_label'], 'url' => $social['url'], 'external' => true] : null"
                 :note="$social['note'] ?? null"
+                tone="rose"
             />
         @endforeach
     </div>

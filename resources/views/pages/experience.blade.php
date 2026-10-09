@@ -6,7 +6,6 @@
 @push('main')
     <x-sections.experiences.intro />
     <x-sections.experiences.showcase />
-    <x-sections.experiences.contact />
+    <x-sections.shared.contact wave-top />
     <x-sections.home.faq />
-    <x-sections.home.cta />
 @endpush

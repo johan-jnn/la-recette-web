@@ -1,5 +1,6 @@
 @props([
     'podcast', // App\Models\Podcast (avec la relation "urls")
+    'fullButton' => false, // bouton "Écouter" pleine largeur (catalogue)
 ])
 
 @php
@@ -21,6 +22,6 @@
     </div>
 
     @if ($listenUrl)
-        <x-ui.button :url="$listenUrl" external class="w-full">Écouter</x-ui.button>
+        <x-ui.button :url="$listenUrl" external :class="$fullButton ? 'w-full' : 'self-center'">Écouter</x-ui.button>
     @endif
 </article>

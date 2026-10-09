@@ -1,5 +1,6 @@
 @props([
     'eyebrow' => null,
+    'eyebrowTone' => null, // par défaut celle de "tone" (forest, light, rose)
     'title',
     'description' => null,
     'align' => 'left', // left, center
@@ -11,7 +12,7 @@
 <div data-reveal {{ $attributes->merge(['class' => "{$spacing} flex flex-col gap-4 " . ($align === 'center' ? 'items-center text-center' : 'md:flex-row md:items-center md:justify-between')]) }}>
     <div class="flex flex-col gap-5 {{ $tone === 'light' ? 'text-white' : 'text-forest' }}">
         @if ($eyebrow)
-            <x-ui.eyebrow :tone="$tone">{{ $eyebrow }}</x-ui.eyebrow>
+            <x-ui.eyebrow :tone="$eyebrowTone ?? $tone">{{ $eyebrow }}</x-ui.eyebrow>
         @endif
 
         <h2 class="text-title font-bold">{{ $title }}</h2>

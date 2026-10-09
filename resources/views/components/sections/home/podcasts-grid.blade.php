@@ -9,7 +9,7 @@
 
 <x-layout.section id="podcasts" bg="white" padding="pt-16 md:pt-[72px] pb-16 md:pb-[78px]">
     <x-slot:decor>
-        <x-ui.wave class="bottom-0" />
+        <x-ui.wave />
     </x-slot:decor>
 
     <x-ui.section-heading title="Les derniers épisodes">

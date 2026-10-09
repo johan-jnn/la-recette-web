@@ -25,5 +25,5 @@
         </div>
     </div>
 
-    <x-ui.wave class="bottom-0" />
+    <x-ui.wave />
 </section>

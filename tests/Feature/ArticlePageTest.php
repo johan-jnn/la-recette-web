@@ -49,7 +49,7 @@ class ArticlePageTest extends TestCase
         $this->makeArticle(['title' => 'Un autre article']);
 
         $this->get(route('articles.show', $article))
-            ->assertSee('À lire aussi')
+            ->assertSee('Pour prolonger la lecture')
             ->assertSee('Un autre article');
     }
 

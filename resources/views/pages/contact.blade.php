@@ -26,25 +26,30 @@
 @endphp
 
 @push('main')
-    <x-ui.page-hero
-        :breadcrumb="[['label' => 'Contact']]"
+    <x-sections.shared.hero-card
         title="Faisons connaissance"
         description="Une question sur le podcast, un projet de production, une expérience à réserver ou un devis pour votre équipe ? Écrivez à Maison la recette."
-    />
+    >
+        <x-ui.button url="#contact">Écrire un message</x-ui.button>
+        <x-ui.button :url="route('experiences.index')" variant="rose">Découvrir les expériences</x-ui.button>
+    </x-sections.shared.hero-card>
+
+    <x-sections.contact.topics />
 
     {{-- ?experience={id} et ?type={ContactType} pré-remplissent le formulaire --}}
-    <x-sections.contact.form
+    <x-sections.shared.contact
+        description="Utilisez ce formulaire pour une question sur le podcast, une demande de devis pour le studio ou une expérience, ou une réservation."
         :selected-experiences="array_filter([request()->query('experience')])"
         :selected-type="request()->query('type')"
+        wave-bottom
     />
 
-    <x-sections.home.socials description="" align="left" />
+    <x-sections.home.socials />
 
     <x-sections.home.faq
         :items="$faqItems"
         title="FAQ"
-        subtitle=""
+        subtitle="Avant de nous écrire"
         description="Quelques réponses utiles avant d’envoyer votre message."
-        bg="white"
     />
 @endpush

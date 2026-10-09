@@ -11,8 +11,8 @@
 
 {{-- Menu de tri : liens conservant les autres paramètres de la requête --}}
 <div {{ $attributes->merge(['class' => 'relative']) }} x-data="{ open: false }" @click.outside="open = false">
-    <button type="button" @click="open = !open" :aria-expanded="open" class="inline-flex items-center gap-2 text-base text-forest cursor-pointer">
-        {{ $label }} <span class="font-semibold">{{ $options[$current] ?? '' }}</span>
+    <button type="button" @click="open = !open" :aria-expanded="open" class="inline-flex items-center gap-2 text-sm font-semibold text-forest underline underline-offset-4 cursor-pointer">
+        {{ $label }} {{ mb_strtolower($options[$current] ?? '') }}
         <x-ui.icon name="chevron-down" class="transition-transform" x-bind:class="open ? 'rotate-180' : ''" />
     </button>
 
